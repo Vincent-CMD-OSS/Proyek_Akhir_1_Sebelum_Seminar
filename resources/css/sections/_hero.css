@@ -1,0 +1,161 @@
+/* resources/css/sections/_hero.css */
+
+.hero-section {
+    position: relative;
+    height: 100vh; /* Full viewport height */
+    overflow: hidden;
+}
+
+.hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Overlay gelap */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding: 20px;
+}
+
+/* Definisi Keyframes untuk animasi (tetap sama) */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-title {
+    /* PERUBAHAN: Ukuran font lebih besar dan lebih tebal */
+    font-size: 4.5rem;  /* Naikkan dari 3.5rem */
+    font-weight: 700;   /* Bisa pakai 700 (bold) atau 800 (extra-bold), tergantung font Nunito-mu */
+    /* Jika font Nunito mendukung, bisa juga: font-weight: bold; atau font-weight: bolder; */
+    
+    margin-bottom: 1.2rem; /* Sedikit penyesuaian margin jika perlu */
+    line-height: 1.1;      /* Sesuaikan line-height agar tidak terlalu rapat jika font besar */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* OPSI: Tambahkan sedikit shadow untuk readability */
+
+    /* Animasi (tetap sama) */
+    opacity: 0;
+    animation-name: fadeInUp;
+    animation-duration: 1.2s;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    animation-delay: 0.5s;
+}
+
+.hero-overlay .lead {
+    /* PERUBAHAN: Ukuran font subtitle disesuaikan */
+    font-size: 1.5rem;   /* Naikkan dari 1.25rem, sesuaikan agar proporsional */
+    font-weight: 400;    /* Bisa pakai 300 (light) atau 400 (normal) */
+    
+    max-width: 750px;    /* Mungkin sedikit perlebar max-width jika font lebih besar */
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;      /* Sesuaikan line-height */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* OPSI: Tambahkan sedikit shadow */
+
+    /* Animasi (tetap sama) */
+    opacity: 0;
+    animation-name: fadeInUp;
+    animation-duration: 1.2s;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    animation-delay: 1s;
+}
+
+/* Media query untuk layar lebih kecil, sesuaikan juga di sini */
+@media (max-width: 992px) { /* Breakpoint medium/tablet */
+    .hero-title {
+        font-size: 3.8rem;
+    }
+    .hero-overlay .lead {
+        font-size: 1.35rem;
+    }
+}
+
+@media (max-width: 768px) { /* Breakpoint small/tablet portrait */
+    .hero-title {
+        font-size: 3rem; /* Sebelumnya 2.5rem */
+    }
+    .hero-overlay .lead {
+        font-size: 1.2rem; /* Sebelumnya 1.1rem */
+    }
+}
+
+@media (max-width: 576px) { /* Breakpoint extra small/mobile landscape */
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    .hero-overlay .lead {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) { /* Breakpoint mobile portrait */
+    .hero-title {
+        font-size: 2.2rem; /* Sebelumnya 2rem */
+    }
+    .hero-overlay .lead {
+        font-size: 1rem; /* Tetap atau sedikit naik */
+    }
+}
+
+/* CSS untuk Pilihan 2 */
+.section-header .preheader-eyebrow span {
+    /* Bisa sama seperti Pilihan 1 atau lebih sederhana */
+    color: var(--accent-color, #f6c23e);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+.section-header .section-title.icon-decorated {
+    position: relative;
+    margin-bottom: 1.5rem; /* Beri ruang lebih untuk ikon */
+    /* ... style judul lainnya ... */
+}
+
+.section-header .section-title.icon-decorated::before,
+.section-header .section-title.icon-decorated::after {
+    content: ''; /* Garis */
+    position: absolute;
+    top: 50%;
+    width: 50px; /* Panjang garis */
+    height: 2px;
+    background-color: #ddd;
+    transform: translateY(-50%);
+}
+
+.section-header .section-title.icon-decorated::before {
+    left: calc(50% - 35px - 50px); /* (tengah - setengah ikon - panjang garis) */
+}
+
+.section-header .section-title.icon-decorated::after {
+    right: calc(50% - 35px - 50px); /* (tengah - setengah ikon - panjang garis) */
+}
+
+.section-header .section-title.icon-decorated .icon-divider {
+    /* Anda perlu Font Awesome atau SVG ikon di sini */
+    /* Contoh dengan Font Awesome: <i class="fas fa-camera icon-divider"></i> di HTML */
+    font-size: 1.5rem; /* Ukuran ikon */
+    color: var(--primary-color, #4e73df);
+    margin: 0 15px; /* Jarak ikon dari garis */
+    position: relative; /* Agar bisa di atas garis jika ada tumpang tindih */
+}

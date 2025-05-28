@@ -1,0 +1,210 @@
+/* resources/css/sections/_profil.css */
+
+.profil-section {
+    position: relative;
+    min-height: 110vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5% 0 0 0;
+    overflow: hidden; /* SANGAT PENTING untuk lengkungan mulus */
+    background-color: #ffffff;
+}
+
+.profil-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 200%;
+    height: 600px;
+    background-color: #e1f2fc;
+    z-index: 0;
+    border-radius: 0 0 50% 50% / 0 0 250px 200px;
+}
+
+.profil-section .content-container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Styling Teks (Tidak ada perubahan dari kode Anda) */
+.profil-text-content .sub-heading {
+    font-size: 1rem;
+    color: #5a5c69;
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 35px;
+    display: inline-block;
+}
+.profil-text-content .sub-heading::before {
+    content: ''; position: absolute; left: 0; top: 50%;
+    transform: translateY(-50%); width: 25px; height: 2px;
+    background-color: #858796;
+}
+.profil-text-content .section-title {
+    font-size: 2.8rem; font-weight: 700; color: #3a3b45;
+    margin-bottom: 20px; line-height: 1.2;
+}
+.profil-text-content .section-description {
+    font-size: 1rem; line-height: 1.7; color: var(--text-dark);
+}
+
+/* Styling Gambar - PENYESUAIAN UNTUK OVERLAP */
+.profil-images-wrapper {
+    display: flex;
+    /* align-items: flex-start; */ /* Mengubah dari flex-start ke center */
+    align-items: center;      /* Agar referensi Y untuk transform lebih mudah */
+    gap: 20px;
+    /* position: relative; */ /* Tidak wajib jika hanya pakai transform, tapi bisa ditambahkan jika ada child absolute */
+}
+
+.profil-images-column-stacked {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative; /* Untuk z-index */
+    z-index: 2;         /* Kolom tumpuk di atas kolom gambar tengah */
+}
+
+.profil-image-top-stack,
+.profil-image-bottom-stack,
+.profil-image-center {
+    object-fit: cover;
+    border-radius: 0.375rem;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+}
+
+.profil-image-top-stack { /* gambar11.jpg */
+    width: 190px;
+    height: 285px;
+    /* PENYESUAIAN: Geser ke bawah agar atasnya overlap gambar tengah */
+    transform: translateY(20px); /* Sesuaikan nilai ini */
+    position: relative; /* Untuk z-index agar bisa di atas yg lain */
+    z-index: 3;
+}
+
+.profil-image-bottom-stack { /* Gambars12.jpg */
+    width: 190px;
+    height: 127px;
+    /* PENYESUAIAN: Geser ke atas agar bawahnya overlap gambar tengah */
+    transform: translateY(-30px); /* Sesuaikan nilai ini */
+    position: relative; /* Untuk z-index */
+    z-index: 3;
+}
+
+.profil-image-column-main {
+    position: relative; /* Untuk z-index */
+    z-index: 1;         /* Gambar tengah di belakang kolom tumpuk */
+}
+
+.profil-image-center { /* Gambar13.jpg */
+    width: 270px;
+    height: 490px;
+    display: block; /* Menghindari spasi aneh jika inline */
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) { /* Tablet */
+    .profil-section { padding: 60px 0; }
+    .profil-text-content { text-align: center; }
+    .profil-text-content .sub-heading { padding-left: 0; justify-content: center; }
+    .profil-text-content .sub-heading::before { display: none; }
+
+    .profil-image-top-stack {
+        width: 170px; height: 255px;
+        transform: translateY(15px); /* Sesuaikan overlap untuk tablet */
+    }
+    .profil-image-bottom-stack {
+        width: 170px; height: 113px;
+        transform: translateY(-20px); /* Sesuaikan overlap untuk tablet */
+    }
+    .profil-image-center { width: 240px; height: 430px; }
+
+    .profil-section::before {
+        height: 650px;
+        width: 180%;
+        left: -40%;
+        border-radius: 0 0 50% 50% / 0 0 200px 160px;
+    }
+}
+
+@media (max-width: 767.98px) { /* Mobile besar */
+    .profil-text-content .section-title { font-size: 2.2rem; }
+    .profil-text-content .section-description { font-size: 0.95rem; }
+
+    .profil-images-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+    .profil-images-column-stacked {
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 20px;
+        gap: 15px;
+        z-index: auto; /* Reset z-index karena layout berubah */
+    }
+    .profil-image-top-stack {
+        width: 140px; height: 210px;
+        transform: translateY(0); /* Hilangkan overlap saat berdampingan */
+        z-index: auto;
+    }
+    .profil-image-bottom-stack {
+        width: 140px; height: 93px;
+        transform: translateY(0); /* Hilangkan overlap saat berdampingan */
+        z-index: auto;
+    }
+    .profil-image-center {
+        width: 220px; height: 390px;
+        z-index: auto; /* Reset z-index */
+    }
+    .profil-image-column-main {
+        z-index: auto; /* Reset z-index */
+    }
+
+
+    .profil-section::before {
+        height: 600px;
+        width: 160%;
+        left: -30%;
+        border-radius: 0 0 50% 50% / 0 0 150px 120px;
+    }
+}
+
+@media (max-width: 575.98px) { /* Mobile kecil */
+     .profil-images-column-stacked {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        z-index: 2; /* Kembalikan z-index jika overlap diterapkan lagi */
+    }
+    .profil-image-top-stack {
+        width: 160px; height: 240px;
+        transform: translateY(10px); /* Terapkan overlap lagi */
+        z-index: 3;
+    }
+    .profil-image-bottom-stack {
+        width: 160px; height: 107px;
+        transform: translateY(-15px); /* Terapkan overlap lagi */
+        z-index: 3;
+    }
+    .profil-image-center {
+        width: 75%;
+        max-width: 230px;
+        height: auto;
+        aspect-ratio: 270 / 490;
+        z-index: 1; /* Gambar tengah di belakang */
+    }
+     .profil-image-column-main {
+        z-index: 1; /* Sesuaikan z-index */
+    }
+
+    .profil-section::before {
+        height: 550px;
+        width: 150%;
+        left: -25%;
+        border-radius: 0 0 50% 50% / 0 0 120px 100px;
+    }
+}

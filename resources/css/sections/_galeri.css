@@ -1,0 +1,537 @@
+/* Galeri Digital Section Styles */
+
+/* Section Background */
+#galeri.bg-light {
+    background-color: #ffffff;
+}
+
+/* Header Styling */
+.section-header .title span {
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.section-header .section-title {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.galeri-subtitle {
+    color: #6c757d;
+    font-size: 18px;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Gallery Items */
+.galeri-item {
+    position: relative;
+    transition: all 0.3s ease;
+    margin-bottom: 30px;
+}
+
+/* .galeri-item:hover {
+    transform: translateY(-5px);
+} */
+
+.galeri-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.galeri-image img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    /* Removed zoom effect on hover */
+}
+
+.date-badge {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background-color: rgba(255, 193, 7, 0.9);
+    color: #333;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.galeri-content {
+    padding: 15px 5px;
+}
+
+.galeri-content h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+    font-weight: 700;
+    color: #333;
+}
+
+.galeri-content p {
+    color: #6c757d;
+    margin-bottom: 15px;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+/* Smaller Gallery Items */
+.galeri-item-small {
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+}
+
+/* .galeri-item-small:hover {
+    transform: translateX(5px);
+} */
+
+.galeri-image-small {
+    position: relative;
+    width: 200px;
+    min-width: 200px;
+    flex-shrink: 0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.galeri-image-small img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    /* Removed zoom effect on hover */
+}
+
+.date-badge-small {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgba(255, 193, 7, 0.9);
+    color: #333;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.galeri-content-small {
+    padding: 5px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.galeri-content-small h4 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: 700;
+    color: #333;
+}
+
+.galeri-content-small p {
+    color: #6c757d;
+    font-size: 15px;
+    margin-bottom: 5px;
+    line-height: 1.5;
+}
+
+.btn-with-line {
+    position: relative;
+    display: inline-block;
+    color: #333;
+    font-weight: 600;
+    text-decoration: none;
+    padding-bottom: 5px;
+    transition: color 0.3s ease;
+}
+
+.btn-with-line::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #ffc107;
+    transition: width 0.3s ease;
+}
+
+.btn-with-line:hover {
+    color: #ffc107;
+}
+
+.btn-with-line:hover::after {
+    width: 100%;
+}
+
+/* Button styling */
+.btn-accent.btn-xlarge {
+    padding: 12px 30px;
+    font-size: 18px;
+    letter-spacing: 1px;
+    margin-top: 20px;
+}
+
+.btn-rounded {
+    border-radius: 30px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .section-header .section-title {
+        font-size: 32px;
+    }
+    
+    .galeri-subtitle {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .galeri-image-small {
+        width: 160px;
+        min-width: 160px;
+    }
+    
+    .galeri-image-small img {
+        height: 120px;
+    }
+    
+    .galeri-content-small h4 {
+        font-size: 18px;
+    }
+    
+    .galeri-content-small p {
+        font-size: 14px;
+    }
+    
+    .section-header .section-title {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 576px) {
+    .galeri-item-small {
+        flex-direction: column;
+    }
+    
+    .galeri-image-small {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    
+    .galeri-image-small img {
+        height: 200px;
+    }
+    
+    .galeri-content-small {
+        padding: 0;
+    }
+}   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Activities Section Styles */
+
+/* Activity Items */
+.activity-item {
+    position: relative;
+    transition: all 0.3s ease;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.activity-item:hover {
+    transform: translateY(-5px);
+}
+
+.activity-img-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    height: 350px;
+}
+
+.activity-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.activity-item:hover .activity-img-container img {
+    transform: scale(1.05);
+}
+
+.activity-description {
+    min-height: 120px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    color: #6c757d;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+/* Content styling */
+.col-lg-6 {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.col-lg-6 h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+    font-weight: 700;
+    color: #333;
+}
+
+/* Info boxes (location and date) */
+.info-box {
+    background-color: #f8f9fa;
+    padding: 8px 15px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: #6c757d;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.info-box i {
+    color: #ffc107;
+    margin-right: 8px;
+}
+
+/* Button styling */
+.btn-primary {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #333;
+    border-radius: 30px;
+    padding: 8px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #e0a800;
+    border-color: #e0a800;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+}
+
+/* Date badge similar to gallery */
+.date-badge-activity {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: rgba(255, 193, 7, 0.9);
+    color: #333;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 10;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .col-lg-6 h3 {
+        font-size: 22px;
+    }
+    
+    .activity-description {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .activity-img-container {
+        height: 300px;
+    }
+    
+    .activity-description {
+        min-height: 100px;
+    }
+    
+    .info-box {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 576px) {
+    .activity-img-container {
+        height: 250px;
+    }
+    
+    .col-lg-6 {
+        padding: 15px;
+    }
+    
+    .col-lg-6 h3 {
+        font-size: 20px;
+    }
+}
+
+/* CSS untuk Pilihan 2 */
+.section-header .preheader-eyebrow span {
+    /* Bisa sama seperti Pilihan 1 atau lebih sederhana */
+    color: var(--accent-color, #f6c23e);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+.section-header .section-title.icon-decorated {
+    position: relative;
+    margin-bottom: 1.5rem; /* Beri ruang lebih untuk ikon */
+    /* ... style judul lainnya ... */
+}
+
+.section-header .section-title.icon-decorated::before,
+.section-header .section-title.icon-decorated::after {
+    content: ''; /* Garis */
+    position: absolute;
+    top: 50%;
+    width: 50px; /* Panjang garis */
+    height: 2px;
+    background-color: #ddd;
+    transform: translateY(-50%);
+}
+
+.section-header .section-title.icon-decorated::before {
+    left: calc(50% - 35px - 50px); /* (tengah - setengah ikon - panjang garis) */
+}
+
+.section-header .section-title.icon-decorated::after {
+    right: calc(50% - 35px - 50px); /* (tengah - setengah ikon - panjang garis) */
+}
+
+.section-header .section-title.icon-decorated .icon-divider {
+    /* Anda perlu Font Awesome atau SVG ikon di sini */
+    /* Contoh dengan Font Awesome: <i class="fas fa-camera icon-divider"></i> di HTML */
+    font-size: 1.5rem; /* Ukuran ikon */
+    color: var(--primary-color, #4e73df);
+    margin: 0 15px; /* Jarak ikon dari garis */
+    position: relative; /* Agar bisa di atas garis jika ada tumpang tindih */
+}
+
+/* resources/css/sections/_galeri.css */
+
+/* ... (CSS untuk galeri item dan lainnya yang sudah ada dan berfungsi) ... */
+
+/* STYLING BARU UNTUK HEADER SECTION GALERI */
+.galeri-section-header {
+    position: relative;
+    padding-bottom: 1.5rem; /* Memberi ruang di bawah subtitle sebelum konten galeri */
+    border-bottom: 1px solid #e9ecef; /* Garis pemisah bawah yang halus */
+    margin-bottom: 3rem !important; /* Menambah jarak ke konten galeri, !important untuk override jika ada konflik */
+}
+
+.galeri-pre-title span {
+    display: inline-block;
+    font-size: 0.85rem; /* 13.6px */
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent-color, #f6c23e); /* Warna aksen cerah */
+    padding: 0.25rem 0.75rem; /* Sedikit padding */
+    /* Opsi 1: Hanya teks berwarna */
+
+    /* Opsi 2: Background pill (pilih salah satu dengan Opsi 1) */
+    /* background-color: rgba(var(--accent-color-rgb, 246, 194, 62), 0.15); */ /* Warna aksen transparan */
+    /* border-radius: 50px; */
+    /* color: var(--accent-color-darker, #b08c2c); */ /* Warna teks lebih gelap dari background pill */
+}
+
+.galeri-main-title {
+    font-size: 2.5rem; /* 40px, pastikan cukup besar */
+    font-weight: 700; /* Bold */
+    color: var(--primary-color, #4e73df); /* Warna primer tema */
+    margin-top: 0.5rem; /* Jarak dari pre-title */
+    margin-bottom: 1rem !important; /* Jarak ke subtitle, !important untuk tes */
+    position: relative;
+    padding-bottom: 0.75rem; /* Ruang untuk garis bawah */
+}
+
+.galeri-main-title::after {
+    content: '';
+    display: block;
+    width: 70px; /* Lebar garis bawah */
+    height: 3px;  /* Ketebalan garis */
+    background-color: var(--primary-color, #4e73df); /* Warna garis sama dengan judul */
+    margin: 0.5rem auto 0; /* 0.5rem jarak dari teks, auto untuk center, 0 margin bawah */
+    border-radius: 2px;
+}
+
+.galeri-subtitle {
+    font-size: 1.1rem; /* 17.6px */
+    color: var(--text-dark, #5a5c69);
+    opacity: 0.85;
+    line-height: 1.7;
+    max-width: 700px; /* Batasi lebar subtitle */
+    margin-left: auto;
+    margin-right: auto;
+    /* font-style: italic; */ /* Opsi jika suka */
+}
+
+/* Pastikan variabel warna ada di :root di app.css */
+/* Contoh jika belum ada :root di app.css */
+/*
+:root {
+    --primary-color: #4e73df;
+    --accent-color: #f6c23e;
+    --accent-color-rgb: 246, 194, 62; // untuk rgba
+    --accent-color-darker: #b08c2c;
+    --text-dark: #5a5c69;
+}
+*/

@@ -1,0 +1,209 @@
+/* === ROOT VARIABLES (Diambil dan Disesuaikan dari Referensi) === */
+:root {
+    /* Warna Utama (Pilih salah satu atau kombinasikan sesuai kebutuhan desain akhir) */
+    --accent-color: #109fcd; /* Biru dari referensi awal Anda */
+    /* --accent-color: #C5A992; */ /* Coklat dari referensi Bootstrap overrides */
+
+    --dark-color: #2f2f2f;
+    --grey-color: #f1f1f1; /* Digunakan sebagai --bs-light di referensi */
+    --body-text-color: #757575;
+    --light-text-color: #afafaf;
+
+    /* Font Utama */
+    --body-font: "Roboto", sans-serif;
+    --heading-font: 'Montserrat', sans-serif;
+
+    /* Bootstrap Overrides (jika diperlukan, sebagian besar bisa langsung di-style) */
+    --bs-primary-rgb: 16, 159, 205; /* Dari --accent-color #109fcd */
+    /* --bs-primary-rgb: 197, 169, 146; */ /* Dari --accent-color #C5A992 */
+    --bs-body-font-family: var(--body-font);
+    --bs-body-font-size: 16px; /* Referensi menggunakan 16px & 18px, kita pilih 16px sebagai dasar */
+    --bs-body-line-height: 1.8; /* Dari referensi */
+    --bs-body-color: var(--body-text-color);
+
+    --bs-light: var(--grey-color);
+    --bs-light-rgb: 241, 241, 240;
+    --bs-dark: var(--dark-color);
+    --bs-dark-rgb: 47, 47, 47;
+}
+
+/* === GLOBAL STYLES (Diambil dari Referensi) === */
+body {
+    font-family: var(--body-font);
+    font-size: var(--bs-body-font-size);
+    line-height: var(--bs-body-line-height);
+    color: var(--bs-body-color);
+    background-color: #fff; /* Warna background default */
+    margin: 0;
+    -webkit-font-smoothing: antialiased; /* Untuk render font yang lebih halus */
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+  font-family: var(--heading-font);
+  font-weight: 700; /* Default dari referensi, Montserrat 900 hanya untuk .banner-title */
+  line-height: 1.2;
+  color: var(--dark-color); /* Default heading color */
+  margin: 0 0 20px 0; /* Margin bawah default untuk heading */
+}
+h1.light, h2.light, h3.light, h4.light, h5.light, h6.light {
+  color: #fff; /* Untuk heading di background gelap */
+}
+
+a {
+  color: var(--dark-color); /* Warna link default */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+a:hover {
+  color: var(--accent-color); /* Warna link hover */
+  text-decoration: none; /* Umumnya tidak perlu underline jika desainnya modern */
+}
+
+/* Styling untuk setiap section agar minimal 110vh (atau 100vh sesuai diskusi) */
+.hero-section,
+.profil-section,
+.galeri-section,
+.operasional-section,
+.donasi-section {
+    min-height: 100vh; /* Kita coba 100vh dulu agar pas dengan viewport awal */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* === HERO SECTION STYLING (Diperhalus berdasarkan referensi) === */
+.hero-section {
+    padding: 0;
+    background-color: var(--dark-color); /* Warna fallback jika gambar tidak termuat */
+}
+
+.hero-section .main-slider, /* Class dari referensi, kita gunakan untuk #heroCarousel */
+.hero-section .carousel, /* Target Bootstrap Carousel */
+.hero-section .carousel-inner,
+.hero-section .carousel-item {
+    height: 100%;
+    min-height: inherit; /* Mewarisi min-height dari .hero-section (100vh atau 110vh) */
+}
+
+.hero-section .carousel-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 30, 30, 0.3); /* Overlay gelap tipis pada gambar untuk kontras teks */
+    z-index: 1; /* Di bawah teks, di atas gambar */
+}
+
+.hero-section .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    /* Efek fade in untuk gambar saat slide aktif (opsional) */
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+.hero-section .carousel-item.active img {
+    opacity: 1;
+}
+
+/* Banner Content (Teks Overlay) */
+.hero-section .banner-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+    color: #fff;
+    width: 80%; /* Batasi lebar agar tidak terlalu ke pinggir */
+    max-width: 900px; /* Maksimum lebar konten */
+}
+
+.hero-section .banner-title {
+    font-family: var(--heading-font);
+    font-weight: 900; /* Sesuai referensi Montserrat Black */
+    font-size: clamp(2.5rem, 6vw, 5.5rem); /* Ukuran font responsif */
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    /* Animasi fade-in & slide-up untuk teks saat slide aktif */
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 20px)); /* Posisi awal sedikit di bawah */
+    transition: opacity 0.8s ease-out 0.4s, transform 0.8s ease-out 0.4s; /* Delay agar muncul setelah gambar */
+}
+.hero-section .carousel-item.active .banner-title {
+    opacity: 1;
+    transform: translate(-50%, -50%); /* Kembali ke posisi normal */
+}
+/* Efek .txt-fx (animasi per huruf) bisa ditambahkan dengan JS jika diinginkan nanti */
+
+
+/* Tombol Navigasi Slider (Adaptasi dari .slick-arrow referensi untuk Bootstrap Carousel) */
+.hero-section .carousel-control-prev,
+.hero-section .carousel-control-next {
+    width: auto;
+    opacity: 0.8; /* Sedikit transparan */
+    background-image: none; /* Hapus panah default Bootstrap */
+    border: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+    background-color: rgba(47, 47, 47, 0.3); /* var(--dark-color) dengan alpha */
+    color: #fff;
+    padding: 15px; /* Lebih besar agar mudah diklik */
+    cursor: pointer;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    border-radius: 50%; /* Membuat tombol bulat */
+    height: 50px; /* Sesuaikan dengan padding */
+    width: 50px;  /* Sesuaikan dengan padding */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hero-section .carousel-control-prev:hover,
+.hero-section .carousel-control-next:hover {
+    background-color: var(--accent-color); /* Gunakan accent color saat hover */
+    opacity: 1;
+}
+.hero-section .carousel-control-prev {
+    left: 30px; /* Sesuaikan posisi */
+}
+.hero-section .carousel-control-next {
+    right: 30px; /* Sesuaikan posisi */
+}
+.hero-section .carousel-control-prev .icon, /* Menggunakan class .icon seperti di referensi */
+.hero-section .carousel-control-next .icon {
+    font-size: 1.5rem; /* Ukuran ikon di dalam tombol */
+    line-height: 0; /* Agar ikon pas di tengah */
+}
+
+/* Carousel Indicators (Titik-titik di bawah) */
+.hero-section .carousel-indicators {
+    bottom: 30px; /* Naikkan sedikit */
+    z-index: 15;
+}
+.hero-section .carousel-indicators button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin: 0 6px; /* Sedikit spasi */
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Border tipis */
+    opacity: 0.7;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+.hero-section .carousel-indicators .active {
+    background-color: #fff;
+    opacity: 1;
+    border-color: transparent;
+}

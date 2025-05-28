@@ -1,0 +1,195 @@
+/* public/css/public_operasional_index.css */
+/* Variabel warna dan font bisa diambil dari :root di app.css */
+
+/* Hero Section Halaman Operasional */
+.operasional-hero {
+    padding: 100px 0;
+    background: linear-gradient(45deg, var(--primary-color-dark, #3a5bd9), var(--primary-color-light, #728eed));
+    color: var(--white, #ffffff);
+    margin-bottom: 3rem;
+}
+.operasional-hero .page-title {
+    font-size: 3rem;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+.operasional-hero .page-slogan {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Container Utama */
+.operasional-container {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Section Styling Umum */
+.operasional-section {
+    padding: 40px 0;
+    margin-bottom: 2rem;
+}
+.operasional-section .section-header {
+    margin-bottom: 2.5rem;
+}
+.operasional-section .section-heading {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--text-dark, #2e3d5c);
+    margin-bottom: 0;
+}
+.operasional-section .divider {
+    height: 3px;
+    width: 60px;
+    background: var(--accent-color, #f6c23e);
+    margin: 10px auto 0;
+    border-radius: 3px;
+}
+
+/* public/css/public_operasional_index.css */
+/* ... (style hero, section umum yang sudah ada) ... */
+
+/* Tabel Jadwal Harian (dihapus karena diganti accordion) */
+/* .jadwal-harian-table { ... } */
+
+/* Accordion Styling untuk Jadwal Harian */
+.jadwal-harian-accordion {
+    /* Bisa ditambahkan border atau shadow untuk group accordion jika mau */
+}
+
+.jadwal-harian-accordion .accordion-item {
+    border: 1px solid var(--divider-color, #e0e0e0);
+    border-radius: 0.5rem; /* Rounded corner untuk setiap item hari */
+    margin-bottom: 1rem; /* Jarak antar hari */
+    overflow: hidden; /* Untuk border-radius pada header dan body */
+    background-color: var(--white, #ffffff);
+    box-shadow: var(--shadow-small, 0 2px 15px rgba(0,0,0,0.05));
+}
+
+.jadwal-harian-accordion .accordion-header .accordion-button {
+    background-color: var(--bg-light, #f8f9fe);
+    color: var(--text-dark, #2e3d5c);
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--divider-color, #e0e0e0);
+    box-shadow: none; /* Hapus shadow default accordion button Bootstrap */
+}
+.jadwal-harian-accordion .accordion-header .accordion-button:not(.collapsed) {
+    background-color: var(--primary-color-light, #728eed); /* Warna saat terbuka */
+    color: var(--white, #ffffff);
+    border-bottom-color: transparent;
+}
+.jadwal-harian-accordion .accordion-header .accordion-button:not(.collapsed)::after {
+    /* Ubah warna ikon panah saat terbuka jika menggunakan default Bootstrap SVG */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+.jadwal-harian-accordion .accordion-header .accordion-button:focus {
+    box-shadow: 0 0 0 0.2rem rgba(var(--primary-color-rgb, 78, 115, 223), 0.25); /* Shadow focus */
+}
+
+
+.jadwal-harian-accordion .accordion-body {
+    padding: 1.25rem; /* Padding dalam konten accordion */
+    background-color: var(--white, #ffffff);
+}
+
+.jadwal-harian-inner-table {
+    margin-bottom: 0; /* Hapus margin bawah default tabel */
+}
+.jadwal-harian-inner-table thead th {
+    font-weight: 500;
+    color: var(--text-medium, #5a6a85);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--divider-color, #e0e0e0);
+    padding-bottom: 0.5rem;
+}
+.jadwal-harian-inner-table tbody td {
+    padding: 0.6rem 0.25rem; /* Padding lebih kecil untuk slot waktu */
+    font-size: 0.95rem;
+    border-top: 1px solid #f1f1f1; /* Garis antar slot waktu */
+}
+.jadwal-harian-inner-table tbody tr:first-child td {
+    border-top: none; /* Hapus border atas baris pertama */
+}
+.jadwal-harian-inner-table tbody td .fas.fa-clock {
+    color: var(--primary-color-light, #728eed); /* Warna ikon jam */
+}
+
+
+/* ... (CSS untuk Jadwal Khusus tetap sama) ... */
+
+/* Card Jadwal Khusus */
+.jadwal-khusus-card {
+    background-color: var(--white, #ffffff);
+    border: 1px solid var(--divider-color, rgba(0,0,0,0.08));
+    border-radius: 10px;
+    box-shadow: var(--shadow-small, 0 2px 15px rgba(0,0,0,0.05));
+    transition: all var(--transition-speed, 0.3s) ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.jadwal-khusus-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium, 0 5px 25px rgba(0,0,0,0.1));
+}
+
+.jadwal-khusus-card .card-header-status {
+    padding: 0.75rem 1.25rem;
+    font-weight: 600;
+    color: var(--white, #ffffff);
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+.jadwal-khusus-card .status-buka { background-color: #28a745; /* Hijau */ }
+.jadwal-khusus-card .status-tutup { background-color: #dc3545; /* Merah */ }
+.jadwal-khusus-card .status-jam-khusus { background-color: #ffc107; color: var(--text-dark, #212529); /* Kuning */ }
+
+.jadwal-khusus-card .card-body-content {
+    padding: 1.25rem;
+    flex-grow: 1;
+}
+.jadwal-khusus-card .card-title-khusus {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-dark, #2e3d5c);
+    margin-bottom: 0.75rem;
+}
+.jadwal-khusus-card .card-date-khusus,
+.jadwal-khusus-card .card-time-khusus {
+    font-size: 0.95rem;
+    color: var(--text-medium, #5a6a85);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+.jadwal-khusus-card .card-date-khusus i,
+.jadwal-khusus-card .card-time-khusus i {
+    color: var(--primary-color, #4e73df);
+}
+.jadwal-khusus-card .card-keterangan-khusus {
+    font-size: 0.9rem;
+    color: var(--text-light, #8997b1);
+    line-height: 1.5;
+    margin-top: 0.75rem;
+    font-style: italic;
+}
+
+/* Animasi */
+/* .animate-section { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+.animate-section.is-visible { opacity: 1; transform: translateY(0); }
+.animate-fade-in { animation: fadeInPageHero 1s ease-out 0.3s forwards; opacity: 0; } */
+/* @keyframes fadeInPageHero { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; translateY(0); } } */
+
+/* Responsive */
+@media (max-width: 767.98px) {
+    .operasional-hero .page-title { font-size: 2.5rem; }
+    .operasional-section .section-heading { font-size: 1.8rem; }
+    .jadwal-harian-table { font-size: 0.9rem; }
+    .jadwal-harian-table thead th, .jadwal-harian-table tbody td { padding: 0.7rem 0.5rem; }
+}

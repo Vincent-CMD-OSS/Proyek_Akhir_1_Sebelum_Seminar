@@ -1,0 +1,155 @@
+/* Donation Section Styles */
+.donasi-section {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.donasi-wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.donasi-content {
+    width: 50%;
+    padding: 8% 5% 8% 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.donasi-subtitle {
+    margin-bottom: 1rem;
+    color: #4B57A9;
+    font-size: 1rem;
+    font-weight: 500;
+    position: relative;
+    padding-left: 0;
+}
+
+.donasi-subtitle:before {
+    content: "";
+    position: absolute;
+    left: -40px;
+    top: 50%;
+    height: 1px;
+    width: 30px;
+    background-color: #4B57A9;
+}
+
+.donasi-title {
+    font-size: 3.5rem;
+    color: #3F3D56;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.donasi-description p {
+    font-size: 1.1rem;
+    color: #6c757d;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.btn-donasi {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 28px;
+    background-color: #FF8A00;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.btn-donasi:hover {
+    background-color: #E67E00;
+    transform: translateY(-2px);
+}
+
+.icon-arrow-right {
+    margin-left: 8px;
+}
+
+.donasi-image-container {
+    width: 50%;
+    position: relative;
+    overflow: hidden;
+}
+
+.donasi-image {
+    height: 100%;
+    width: 100%;
+    background-color: #f8f9fa;
+    position: relative;
+    overflow: hidden;
+}
+
+.main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.donasi-info {
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+    right: 5%;
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.donasi-info p {
+    font-size: 0.9rem;
+    color: #6c757d;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .donasi-wrapper {
+        flex-direction: column;
+    }
+    
+    .donasi-content, 
+    .donasi-image-container {
+        width: 100%;
+    }
+    
+    .donasi-content {
+        padding: 3rem 2rem;
+        order: 1;
+    }
+    
+    .donasi-image-container {
+        height: 60vh;
+        order: 0;
+    }
+    
+    .donasi-section {
+        height: auto;
+        min-height: 100vh;
+    }
+    
+    .donasi-info {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        right: auto;
+        margin: 0 1rem;
+        transform: translateY(-30px);
+    }
+}
+

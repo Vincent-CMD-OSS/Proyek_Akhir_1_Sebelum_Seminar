@@ -1,0 +1,174 @@
+public/css/public_galeri_index.css
+/* Variabel warna bisa diambil dari :root di app.css atau didefinisikan di sini jika terpisah */
+
+/* Hero Section untuk Halaman Galeri */
+.galeri-hero {
+    padding: 100px 0;
+    background: linear-gradient(135deg, var(--primary-color-dark, #3a5bd9) 0%, var(--primary-color, #4e73df) 100%);
+    color: var(--white, #ffffff);
+    margin-bottom: 3rem;
+}
+.galeri-hero .page-title {
+    font-size: 3rem;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+.galeri-hero .page-slogan {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Galeri List Container */
+.galeri-list-container {
+    font-family: 'Poppins', sans-serif; /* Ganti dengan font pilihanmu */
+}
+
+/* Galeri Card Styling */
+.galeri-card {
+    background-color: var(--white, #ffffff);
+    border: 1px solid var(--divider-color, rgba(0,0,0,0.08));
+    border-radius: 12px;
+    box-shadow: var(--shadow-small, 0 2px 15px rgba(0,0,0,0.05));
+    transition: all var(--transition-speed, 0.3s) ease-out;
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Agar card dalam satu baris punya tinggi sama */
+    overflow: hidden; /* Untuk memastikan border-radius pada gambar */
+}
+
+.galeri-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-medium, 0 5px 25px rgba(0,0,0,0.1));
+}
+
+.galeri-card-img-wrapper {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 10; /* Jaga rasio aspek gambar */
+    background-color: #f0f0f0; /* Warna placeholder jika gambar tidak load */
+}
+
+.galeri-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-speed, 0.3s) ease;
+}
+
+.galeri-card:hover .galeri-card-img {
+    transform: scale(1.08);
+}
+
+.galeri-card-date {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: var(--accent-color, #f6c23e);
+    color: var(--text-dark, #2e3d5c);
+    padding: 5px 8px;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 600;
+    line-height: 1;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+.galeri-card-date .day {
+    display: block;
+    font-size: 1.3rem;
+}
+.galeri-card-date .month-year {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+}
+
+.galeri-card-body {
+    padding: 1.25rem;
+    flex-grow: 1; /* Agar body mengisi sisa ruang card */
+    display: flex;
+    flex-direction: column;
+}
+
+.galeri-card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-dark, #2e3d5c);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+}
+.galeri-card-title a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--transition-speed, 0.3s) ease;
+}
+.galeri-card-title a:hover {
+    color: var(--primary-color, #4e73df);
+}
+
+.galeri-card-text {
+    font-size: 0.9rem;
+    color: var(--text-medium, #5a6a85);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    flex-grow: 1; /* Teks mengisi ruang sebelum footer card */
+}
+
+.galeri-card-footer {
+    padding: 0.75rem 1.25rem;
+    background-color: var(--bg-light, #f8f9fe);
+    border-top: 1px solid var(--divider-color, rgba(0,0,0,0.08));
+    font-size: 0.8rem;
+}
+
+/* Animasi untuk Card */
+/* .galeri-card.animate-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.galeri-card.animate-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+} */
+
+/* Empty State (sama seperti di profil_detail.css, bisa diglobalisasi) */
+.empty-state { padding: 60px 20px; text-align: center; color: var(--text-medium); }
+.empty-state svg { stroke: var(--text-light); width: 70px; height: 70px; }
+
+/* Paginasi Styling (Bootstrap 5) */
+.pagination {
+    /* Custom style jika perlu */
+}
+.pagination .page-item .page-link {
+    color: var(--primary-color, #4e73df);
+    border-radius: 0.25rem; /* Sedikit rounded */
+    margin: 0 3px;
+    border-color: var(--primary-color-light, #728eed);
+}
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-color, #4e73df);
+    border-color: var(--primary-color, #4e73df);
+    color: var(--white, #ffffff);
+}
+.pagination .page-item.disabled .page-link {
+    color: #6c757d;
+    border-color: #dee2e6;
+}
+.pagination .page-item .page-link:hover {
+    background-color: var(--primary-color-light, #728eed);
+    color: var(--white, #ffffff);
+    border-color: var(--primary-color-light, #728eed);
+}
+.pagination .page-item.active .page-link:hover {
+     background-color: var(--primary-color-dark, #3a5bd9);
+}
+
+
+/* Responsive */
+@media (max-width: 767.98px) {
+    .galeri-hero { padding: 80px 0; }
+    .galeri-hero .page-title { font-size: 2.5rem; }
+    .galeri-card-title { font-size: 1.1rem; }
+}

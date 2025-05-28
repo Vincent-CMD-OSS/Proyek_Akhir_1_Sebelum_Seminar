@@ -1,0 +1,471 @@
+/* admin-styles.css */
+/* Basic Reset & Body */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Figtree', sans-serif;
+    background-color: #f8f9fa; /* Light gray background for the page */
+    color: #344767; /* Default text color */
+    line-height: 1.5;
+    /* Hindari overflow di body jika layout diatur dengan benar */
+    /* overflow-x: hidden;  --> Ini mungkin tidak perlu jika width diatur benar */
+}
+
+.admin-layout {
+    display: flex;
+    /* min-height: 100vh; -> Tidak lagi relevan di sini karena sidebar dan content akan mengatur tinggi sendiri */
+}
+
+/* Sidebar */
+.admin-sidebar {
+    width: 260px;
+    background-color: #fff; /* White sidebar */
+    box-shadow: 0 0 30px 0 rgba(82,63,105,.05);
+    color: #344767;
+    transition: width 0.3s ease;
+    border-right: 1px solid #dee2e6;
+    
+    /* --- PERUBAHAN UNTUK SIDEBAR FIXED --- */
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh; /* Sidebar mengisi seluruh tinggi viewport */
+    z-index: 1000; /* Pastikan sidebar di atas konten lain */
+    display: flex; /* Tetap diperlukan untuk flex-direction column */
+    flex-direction: column; /* Tetap diperlukan */
+    overflow-y: auto; /* Tambahkan scroll jika konten sidebar lebih panjang dari viewport */
+}
+
+.sidebar-logo-container {
+    padding: 1.5rem 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center logo content */
+    /* flex-shrink: 0;  Jika sidebar diatur sebagai flex container untuk itemnya, cegah logo mengecil */
+}
+.sidebar-logo-container .logo-icon {
+    font-size: 1.8rem;
+    margin-right: 10px;
+    color: #3A416F; /* Dark blueish color for icon */
+}
+.sidebar-logo-container .logo-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #3A416F; /* Dark blueish color for text */
+    text-decoration: none;
+}
+
+
+.sidebar-nav {
+    padding-top: 1rem;
+    flex-grow: 1; /* Agar nav mengisi sisa ruang di sidebar */
+    /* Jika sidebar punya overflow-y: auto, nav tidak perlu overflow sendiri */
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.sidebar-nav li a {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem; /* Match image padding */
+    text-decoration: none;
+    color: #67748e; /* Slightly lighter text for nav items */
+    font-weight: 500;
+    font-size: 0.875rem; /* Slightly smaller font */
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    margin: 0.25rem 1rem; /* Margin around links to create spacing for active state */
+    border-radius: 0.375rem; /* Rounded corners for links */
+}
+.sidebar-nav li a .menu-icon {
+    width: 32px; /* Width for icon container */
+    height: 32px; /* Height for icon container */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.75rem;
+    font-size: 0.9rem;
+    border-radius: 0.375rem; /* Rounded corners for icon background */
+    background-color: #fff; /* Default white icon background */
+    color: #3A416F; /* Icon color */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for icons */
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-nav li.active > a,
+.sidebar-nav li a:hover {
+    background-color: #3A416F; /* Dark blueish background for active/hover */
+    color: #fff; /* White text for active/hover */
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+}
+
+.sidebar-nav li.active > a .menu-icon,
+.sidebar-nav li a:hover .menu-icon {
+    background-color: #fff; /* White background for icon on active/hover link */
+    color: #3A416F; /* Icon color on active/hover link */
+}
+
+
+.nav-section-title {
+    padding: 0.75rem 1.5rem;
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #67748e;
+    text-transform: uppercase;
+}
+
+.sidebar-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #e9ecef;
+    /* flex-shrink: 0; Jika sidebar diatur sebagai flex container untuk itemnya, cegah footer mengecil */
+}
+.sidebar-footer .btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0.65rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 0.875rem;
+}
+.btn-documentation {
+    background-color: #fff;
+    color: #3A416F;
+    border: 1px solid #3A416F;
+}
+.btn-upgrade {
+    background-color: #3A416F;
+    color: #fff;
+}
+
+
+/* Main Content Wrapper */
+.main-content-wrapper {
+    /* flex-grow: 1;  Sudah tidak jadi flex item langsung dari .admin-layout */
+    display: flex;
+    flex-direction: column;
+    background-color: #F0F2F5; /* Main content area background slightly different */
+    
+    /* --- PERUBAHAN UNTUK MAIN CONTENT WRAPPER --- */
+    margin-left: 260px; /* Lebar sidebar */
+    width: calc(100% - 260px); /* Mengisi sisa lebar */
+    min-height: 100vh; /* Pastikan wrapper mengisi tinggi viewport minimal */
+    position: relative; /* Untuk positioning child seperti topbar jika diperlukan */
+}
+
+/* Topbar */
+.admin-topbar {
+    background-color: #F0F2F5; /* Match main content background, or #fff if you prefer distinct topbar */
+    padding: 0.75rem 2rem; /* Padding for topbar */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 75px; /* Height of topbar */
+    border-bottom: 1px solid #dee2e6; /* Optional: if you want a separator */
+
+    /* --- PERUBAHAN UNTUK TOPBAR FIXED --- */
+    position: fixed; /* Atau position: sticky; top: 0; jika ingin efek sticky */
+    top: 0;
+    /* left: 260px; -> Tidak perlu jika topbar ada di dalam main-content-wrapper yang sudah di-margin */
+    width: calc(100% - 260px); /* Lebar sama dengan main-content-wrapper */
+    z-index: 999; /* Di bawah sidebar tapi di atas konten halaman */
+    box-sizing: border-box; /* Pastikan padding tidak menambah width */
+}
+
+.topbar-left .breadcrumb {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+}
+.topbar-left .breadcrumb li {
+    color: #6c757d;
+}
+.topbar-left .breadcrumb li a {
+    color: #6c757d;
+    text-decoration: none;
+}
+.topbar-left .breadcrumb li a:hover {
+    color: #3A416F;
+}
+.topbar-left .breadcrumb li + li::before {
+    content: "/";
+    padding: 0 0.5rem;
+    color: #6c757d;
+}
+.topbar-left .page-main-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #344767;
+    margin-top: 0.25rem;
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+}
+.topbar-right .search-bar input {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    min-width: 200px;
+}
+.topbar-right .btn-online-builder {
+    background-color: transparent;
+    border: 1px solid #cb0c9f;
+    color: #cb0c9f;
+    padding: 0.4rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    font-size: 0.8rem;
+    margin-left: 1rem;
+    text-decoration: none;
+}
+.topbar-right .topbar-icon-btn {
+    background: none;
+    border: none;
+    color: #67748e;
+    font-size: 1rem; /* Icon size */
+    padding: 0.5rem;
+    margin-left: 0.75rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.topbar-right .topbar-icon-btn .badge {
+    background-color: #17c1e8; /* or any color */
+    color: white;
+    padding: 0.15em 0.4em;
+    font-size: 0.7em;
+    border-radius: 0.25rem;
+    margin-left: 0.25rem;
+}
+.topbar-right .user-info {
+    color: #67748e;
+    font-size: 0.875rem;
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+}
+.topbar-right .user-info .fas { /* User icon */
+    margin-right: 0.5rem;
+}
+
+/* Page Content */
+.page-content {
+    padding: 1.5rem; /* Padding around the content */
+    flex-grow: 1; /* Agar konten mengisi sisa ruang di main-content-wrapper */
+    
+    /* --- PERUBAHAN UNTUK PAGE CONTENT --- */
+    margin-top: 75px; /* Tinggi topbar */
+    overflow-y: auto; /* AKTIFKAN SCROLL HANYA DI SINI */
+    height: calc(100vh - 75px); /* Tinggi viewport dikurangi tinggi topbar */
+}
+
+.page-header h1 {
+    font-size: 1.5rem; /* "Dashboard" title */
+    font-weight: 700;
+    color: #344767;
+    margin-bottom: 0.25rem;
+}
+.page-header p {
+    font-size: 0.875rem;
+    color: #67748e;
+    margin-bottom: 1.5rem;
+}
+
+/* Cards Styling (dan seterusnya tetap sama) */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -12px; /* Gutter */
+    margin-left: -12px;  /* Gutter */
+}
+.col { /* Basic column, can be overridden by .col-md-3 etc. */
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+    padding-right: 12px; /* Gutter */
+    padding-left: 12px;  /* Gutter */
+    margin-bottom: 24px; /* Spacing between rows of cards */
+}
+.col-md-3 { /* For 4 cards in a row */
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+.col-md-4 { /* For 3 cards in a row */
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+}
+.col-md-7 {
+    flex: 0 0 58.333333%;
+    max-width: 58.333333%;
+}
+.col-md-5 {
+    flex: 0 0 41.666667%;
+    max-width: 41.666667%;
+}
+
+
+.stat-card, .chart-card, .info-card {
+    background-color: #fff;
+    border-radius: 0.75rem; /* More rounded corners */
+    box-shadow: 0 0 30px 0 rgba(82,63,105,.05);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Make cards in a row same height */
+}
+
+/* Stat Cards (Top row) */
+.stat-card .card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Align items to the top */
+    flex-grow: 1;
+}
+.stat-card .text-content .stat-title {
+    font-size: 0.8rem;
+    color: #67748e; /* Lighter title */
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+}
+.stat-card .text-content .stat-value {
+    font-size: 1.5rem; /* Larger value */
+    font-weight: 700;
+    color: #344767; /* Darker value */
+    margin-bottom: 0.75rem; /* Space before percentage */
+}
+.stat-card .stat-icon-container {
+    width: 48px; /* Size of the icon background */
+    height: 48px;
+    border-radius: 0.5rem; /* Rounded icon background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #3A416F; /* Default icon background */
+}
+.stat-card .stat-icon-container i {
+    color: #fff; /* White icon */
+    font-size: 1.25rem;
+}
+
+.stat-card .stat-change {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+.stat-card .stat-change .percent.positive {
+    color: #2dce89; /* Green for positive */
+    font-weight: 700;
+}
+.stat-card .stat-change .percent.negative {
+    color: #f5365c; /* Red for negative */
+    font-weight: 700;
+}
+.stat-card .stat-change .period {
+    color: #67748e; /* Lighter text for period */
+}
+
+
+/* Chart Cards */
+.chart-card .card-header-text .chart-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #344767;
+    margin-bottom: 0.125rem;
+}
+.chart-card .card-header-text .chart-subtitle {
+    font-size: 0.875rem;
+    color: #67748e;
+    margin-bottom: 1rem;
+}
+.chart-placeholder {
+    flex-grow: 1;
+    background-color: #e9ecef; /* Placeholder background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    border-radius: 0.375rem;
+    min-height: 200px; /* Give some height to chart area */
+    background-image: url("data:image/svg+xml,%3Csvg width='80' height='20' viewBox='0 0 80 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath fill='%23d8dde2' d='M0 0h80v20H0z'/%3E%3Cpath d='M20 19V1M0 10h40M10 0v20M30 0v20' stroke='%23c9ced3'/%3E%3C/g%3E%3C/svg%3E");
+    background-repeat: repeat;
+}
+
+.chart-card .card-footer-text {
+    font-size: 0.875rem;
+    color: #67748e;
+    padding-top: 1rem;
+    border-top: 1px solid #e9ecef;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+}
+.chart-card .card-footer-text i {
+    margin-right: 0.5rem;
+}
+
+/* Info Cards (Projects, Orders Overview) */
+.info-card .card-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.info-card .card-header-flex .info-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #344767;
+}
+.info-card .card-header-flex .info-options i {
+    color: #67748e;
+    cursor: pointer;
+}
+
+.info-card .info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    font-size: 0.875rem;
+}
+.info-card .info-item i {
+    margin-right: 0.75rem;
+    color: #2dce89; /* Or other relevant color */
+}
+.info-card .info-item.order-overview i {
+    color: #2dce89; /* Green up arrow */
+}
+.info-card .info-item .text-muted {
+    color: #67748e;
+}
+
+/* Logout Button - if needed specific styling beyond a generic button */
+.logout-btn {
+    background-color: #f5365c; /* Red for logout */
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.875rem;
+    margin-left: 1rem;
+}
+.logout-btn:hover {
+    background-color: #dd2146;
+}
