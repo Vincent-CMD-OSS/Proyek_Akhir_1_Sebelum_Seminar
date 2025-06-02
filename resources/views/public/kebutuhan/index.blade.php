@@ -423,79 +423,55 @@
     color: #17a2b8;
 }
 
+/* Container footer untuk tombol bertumpuk vertikal */
 .kebutuhan-card-footer { 
     padding: 20px 25px; 
     border-top: 1px solid rgba(240, 240, 240, 0.5); 
     display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
+    flex-direction: column; /* Ubah ke column untuk layout vertikal */
+    gap: 10px; /* Gap antar tombol */
     background: rgba(248, 249, 250, 0.9);
     backdrop-filter: blur(10px);
-    gap: 15px; /* Tambahkan gap antar tombol */
 }
 
+/* Style tombol dengan full width */
 .btn-detail, .btn-donasi {
-    padding: 10px 20px; /* Ukuran padding yang lebih proporsional */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.7rem 2rem;
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 600;
     text-decoration: none;
-    border-radius: 8px; /* Border radius yang lebih subtle */
-    font-size: 0.95rem; /* Font size yang lebih kecil */
-    font-weight: 500; /* Font weight yang lebih ringan */
-    transition: all 0.2s ease; /* Transisi yang lebih cepat */
-    text-align: center;
-    border: 1px solid transparent;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
     cursor: pointer;
-    min-width: 120px; /* Minimum width untuk konsistensi */
-    flex: 1; /* Agar tombol memiliki lebar yang sama */
-    max-width: 150px; /* Maximum width agar tidak terlalu lebar */
+    border: none;
+    width: 100%; /* Memenuhi lebar container penuh */
+    box-sizing: border-box; /* Memastikan padding tidak menambah lebar total */
 }
 
-.btn-detail { 
-    background: #ffffff;
-    color: #007bff; 
-    border: 1px solid #007bff;
-    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1); /* Shadow yang lebih subtle */
+.btn-detail {
+    background: linear-gradient(135deg,black);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
 }
 
-.btn-detail:hover { 
-    background: #007bff;
-    color: white;
-    transform: translateY(-1px); /* Hover effect yang lebih subtle */
-    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+.btn-detail:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
 }
 
-.btn-donasi { 
-    background: #ffffff;
-    color: #28a745; 
-    border: 1px solid #28a745;
-    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.1); /* Shadow yang lebih subtle */
+.btn-donasi {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
 }
 
-.btn-donasi:hover { 
-    background: #28a745;
-    color: white;
-    border-color: #28a745;
-    transform: translateY(-1px); /* Hover effect yang lebih subtle */
-    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
-}
-
-/* Hapus efek shimmer/glow yang berlebihan */
-.btn-detail::before, .btn-donasi::before {
-    display: none;
-}
-
-.btn-detail::before, .btn-donasi::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s ease;
-}
-
-.btn-detail:hover::before, .btn-donasi:hover::before {
-    left: 100%;
+.btn-donasi:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(40, 167, 69, 0.4);
 }
 
 .pagination-wrapper { 
@@ -603,6 +579,7 @@
 <!-- Hero Section dengan Background -->
 <div class="hero-section">
     <div class="hero-content">
+        <title>Kebutuhan-Panti Asuhan</title>
         <h1>KEBUTUHAN PANTI ASUHAN</h1>
         <p>Memberikan Harapan dan Masa Depan Cerah untuk Anak-Anak<br>{{ $identitasPanti->nama_panti ?? 'Rumah Harapan' }}</p>
     </div>
@@ -726,5 +703,6 @@
             }
         });
     });
+
 </script>
 @endpush
