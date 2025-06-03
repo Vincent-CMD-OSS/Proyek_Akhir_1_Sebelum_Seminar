@@ -29,7 +29,7 @@ class Kebutuhan extends Model
         'deskripsi',
         'status_kebutuhan',
         'target_dana',
-        'dana_terkumpul', // Jika masih ingin mempertahankan kolom ini, meskipun kita hitung dinamis
+        // 'dana_terkumpul',
         'tanggal_mulai_dipublikasikan',
         'tanggal_target_tercapai',
         'gambar_kebutuhan',
@@ -43,7 +43,7 @@ class Kebutuhan extends Model
      */
     protected $casts = [
         'target_dana' => 'decimal:2',
-        'dana_terkumpul' => 'decimal:2', // Cast jika kolomnya masih ada
+        // 'dana_terkumpul' => 'decimal:2',
         'tanggal_mulai_dipublikasikan' => 'date',
         'tanggal_target_tercapai' => 'date',
     ];

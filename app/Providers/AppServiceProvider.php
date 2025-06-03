@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use App\Models\PenerimaanDanaKebutuhan;
+use App\Observers\PenerimaanDanaKebutuhanObserver;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB; // WAJIB ADA
 
 class AppServiceProvider extends ServiceProvider
@@ -78,5 +81,10 @@ class AppServiceProvider extends ServiceProvider
 
         App::setLocale(config('app.locale')); // Mengambil locale dari config
         Carbon::setLocale(config('app.locale')); // Mengatur locale untuk Carbon juga
+
+
+        PenerimaanDanaKebutuhan::observe(PenerimaanDanaKebutuhanObserver::class); // <-- TAMBAHKAN INI
+
+        Paginator::useBootstrapFive(); // Atau versi Bootstrap yang kamu pakai
     }
 }

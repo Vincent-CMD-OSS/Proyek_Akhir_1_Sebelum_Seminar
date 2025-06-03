@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\OperasionalController;
 use App\Http\Controllers\Admin\KebutuhanController;
 use App\Http\Controllers\Admin\DonasiController;
 use App\Http\Controllers\Admin\IdentitasPantiController;
+use App\Http\Controllers\Admin\KelolaKunjunganController; 
 
 // BAGIAN CONTROLLER USER
 use App\Http\Controllers\Public\HomeController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\Public\GaleriPublicController;
 use App\Http\Controllers\Public\OperasionalPublicController;
 use App\Http\Controllers\Public\DonasiPublicController;
 use App\Http\Controllers\Public\KebutuhanPublicController;
+use App\Http\Controllers\Public\PermintaanKunjunganController;
 
 
 /*
@@ -80,15 +82,32 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::get('/', [OperasionalController::class, 'index'])->name('index'); // Halaman utama operasional
 
         // CRUD Jadwal Harian (PENDEKATAN BARU)
-        Route::prefix('harian')->name('harian.')->group(function () {
-            // Route untuk menampilkan form pengaturan jadwal per hari
-            Route::get('{hari}/atur', [OperasionalController::class, 'aturJadwalHarian'])
-                 ->name('atur')
-                 ->where('hari', '(senin|selasa|rabu|kamis|jumat|sabtu|minggu)'); // Parameter hari
+        // Route::prefix('harian')->name('harian.')->group(function () {
+        //     // Route untuk menampilkan form pengaturan jadwal per hari
+        //     Route::get('{hari}/atur', [OperasionalController::class, 'aturJadwalHarian'])
+        //          ->name('atur')
+        //          ->where('hari', '(senin|selasa|rabu|kamis|jumat|sabtu|minggu)'); // Parameter hari
 
-            // Route untuk menyimpan perubahan jadwal per hari
-            Route::post('{hari}/update', [OperasionalController::class, 'updateJadwalHarianPerHari'])
-                 ->name('update.perhari')
+        //     // Route untuk menyimpan perubahan jadwal per hari
+        //     Route::post('{hari}/update', [OperasionalController::class, 'updateJadwalHarianPerHari'])
+        //          ->name('update.perhari')
+        //          ->where('hari', '(senin|selasa|rabu|kamis|jumat|sabtu|minggu)');
+        // });
+
+        Route::prefix('harian')->name('harian.')->group(function () {
+            // Route untuk menampilkan form edit/create untuk hari tertentu
+            Route::get('{hari}/atur', [OperasionalController::class, 'editOrCreateHarian'])
+                 ->name('edit_or_create') // Nama route diubah
+                 ->where('hari', '(senin|selasa|rabu|kamis|jumat|sabtu|minggu)');
+
+            // Route untuk menyimpan atau memperbarui jadwal untuk hari tertentu
+            Route::post('{hari}/simpan', [OperasionalController::class, 'storeOrUpdateHarian']) // Menggunakan POST untuk create/update
+                 ->name('store_or_update') // Nama route diubah
+                 ->where('hari', '(senin|selasa|rabu|kamis|jumat|sabtu|minggu)');
+
+            // Route untuk menghapus/mereset jadwal hari tertentu
+            Route::delete('{hari}/hapus', [OperasionalController::class, 'destroyHarianByDay'])
+                 ->name('destroy_by_day')
                  ->where('hari', '(senin|selasa|rabu|kamis|jumat|sabtu|minggu)');
         });
 
@@ -130,6 +149,9 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::put('foto/{foto}/update-keterangan', [App\Http\Controllers\Admin\IdentitasPantiController::class, 'updateFotoKeterangan'])->name('foto.keterangan.update');
     });
 
+    Route::resource('kunjungan', KelolaKunjunganController::class)->except(['create', 'store', 'edit', 'update']);
+    Route::post('kunjungan/{permintaanKunjungan}/proses', [KelolaKunjunganController::class, 'proses'])->name('kunjungan.proses');
+
 });
 
 
@@ -154,3 +176,5 @@ Route::post('/donasi/kirim-konfirmasi', [DonasiPublicController::class, 'kirimKo
 
 Route::get('/kebutuhan', [KebutuhanPublicController::class, 'index'])->name('public.kebutuhan.index');
 Route::get('/kebutuhan/{slug}', [KebutuhanPublicController::class, 'show'])->name('public.kebutuhan.show');
+
+Route::post('/kunjungan/store', [PermintaanKunjunganController::class, 'store'])->name('public.kunjungan.store');

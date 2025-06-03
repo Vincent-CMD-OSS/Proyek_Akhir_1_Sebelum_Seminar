@@ -58,6 +58,12 @@
                     Donasi
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Route::is('admin.kunjungan.index') ? 'active' : '' }}" href="{{ route('admin.kunjungan.index') }}">
+                    <i class="nav-icon fas fa-calendar-check"></i>
+                    <p>Permintaan Kunjungan</p>
+                </a>
+            </li>
             <li class="nav-section-title">Pengaturan Akun</li>
             <li class="{{ Request::routeIs('admin.profile.user*') ? 'active' : '' }}">
                 <a href="#">

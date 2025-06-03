@@ -4,657 +4,386 @@
 
 @push('styles')
 <style>
-    body { 
-    background-color: #f4f7f6; 
-    font-family: 'Arial', sans-serif; 
-    color: #333;
-    margin: 0;
-    padding: 0;
-}
-
-/* Hero Section dengan Background Image Full Screen */
-.hero-section {
-    height: 115vh;
-    width: 100vw;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), 
-                      url('/assets/images/ttg kami.jpg');
-    background-size: cover;
-    background-position: center center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-}
-
-/* Animasi background parallax */
-.hero-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, rgba(0, 123, 255, 0.1), rgba(40, 167, 69, 0.1));
-    animation: heroOverlay 8s ease-in-out infinite alternate;
-}
-
-@keyframes heroOverlay {
-    0% { opacity: 0.3; }
-    100% { opacity: 0.6; }
-}
-
-.hero-content {
-    text-align: center;
-    color: white;
-    z-index: 2;
-    position: relative;
-    max-width: 800px;
-    padding: 0 20px;
-    animation: heroFadeIn 2s ease-out;
-}
-
-@keyframes heroFadeIn {
-    0% { opacity: 0; transform: translateY(50px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-.hero-content h1 {
-    font-size: 4rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
-    letter-spacing: 2px;
-    line-height: 1.2;
-    color: white;
-    animation: titleGlow 3s ease-in-out infinite alternate;
-}
-
-@keyframes titleGlow {
-    0% { text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7); }
-    100% { text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 255, 255, 0.3); }
-}
-
-.hero-content p {
-    font-size: 1.4rem;
-    margin-bottom: 2rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-    line-height: 1.6;
-    opacity: 0.95;
-    color: white;
-}
-
-.hero-scroll-indicator {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: white;
-    text-align: center;
-    animation: bounce 2s infinite;
-    cursor: pointer;
-}
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-    40% { transform: translateX(-50%) translateY(-10px); }
-    60% { transform: translateX(-50%) translateY(-5px); }
-}
-
-.hero-scroll-indicator i {
-    font-size: 2rem;
-    margin-bottom: 10px;
-    display: block;
-}
-
-/* Main Content Section */
-.main-content {
-    background-color: #f4f7f6;
-    position: relative;
-    z-index: 3;
-    margin-top: -100px;
-    padding-top: 100px;
-}
-
-.kebutuhan-container { 
-    max-width: 1200px; 
-    margin: 0 auto; 
-    padding: 40px 15px;
-    position: relative;
-}
-
-/* Search form */
-.search-form-container {
-    margin-bottom: 40px;
-    padding: 30px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(15px);
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    position: relative;
-    overflow: hidden;
-    transform: translateY(0);
-    animation: contentSlideUp 1s ease-out 0.5s backwards;
-}
-
-@keyframes contentSlideUp {
-    0% { opacity: 0; transform: translateY(50px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-.search-form-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #007bff, #28a745, #17a2b8);
-    background-size: 300% 100%;
-    animation: searchGradient 4s ease-in-out infinite;
-}
-
-@keyframes searchGradient {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-}
-
-.search-form-container form {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-}
-
-.search-form-container .form-control {
-    flex-grow: 1;
-    padding: 15px 25px;
-    font-size: 1.1rem;
-    border: 2px solid rgba(206, 212, 218, 0.3);
-    border-radius: 50px;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(5px);
-    transition: all 0.3s ease;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.search-form-container .form-control:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15), inset 0 2px 4px rgba(0,0,0,0.05);
-    background: rgba(255, 255, 255, 1);
-}
-
-.search-form-container .btn-search {
-    padding: 15px 35px;
-    font-size: 1.1rem;
-    background: linear-gradient(135deg, #007bff, #0056b3);
-    color: white;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 20px rgba(0, 123, 255, 0.3);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    position: relative;
-    overflow: hidden;
-}
-
-.search-form-container .btn-search:hover {
-    background: linear-gradient(135deg, #0056b3, #004085);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.4);
-}
-
-.search-form-container .btn-search::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s ease;
-}
-
-.search-form-container .btn-search:hover::before {
-    left: 100%;
-}
-
-.kebutuhan-grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
-    gap: 30px; 
-    animation: gridFadeIn 1s ease-out 0.8s backwards;
-}
-
-@keyframes gridFadeIn {
-    0% { opacity: 0; transform: translateY(30px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-.kebutuhan-card {
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(20px);
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    position: relative;
-    transform: translateY(0);
-}
-
-.kebutuhan-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #007bff, #28a745);
-    transform: scaleX(0);
-    transition: transform 0.4s ease;
-    transform-origin: left;
-}
-
-.kebutuhan-card:hover {
-    transform: translateY(-15px) scale(1.03);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-}
-
-.kebutuhan-card:hover::before {
-    transform: scaleX(1);
-}
-
-.kebutuhan-card-img img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-bottom: 1px solid rgba(238, 238, 238, 0.5);
-    transition: transform 0.4s ease;
-}
-
-.kebutuhan-card:hover .kebutuhan-card-img img {
-    transform: scale(1.1);
-}
-
-.kebutuhan-card-placeholder {
-    width: 100%;
-    height: 200px;
-    background: linear-gradient(135deg, #e9ecef, #f8f9fa);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #6c757d;
-    font-size: 1.2rem;
-    border-bottom: 1px solid rgba(238, 238, 238, 0.5);
-    position: relative;
-    overflow: hidden;
-}
-
-.kebutuhan-card-placeholder::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-    animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-    0% { left: -100%; }
-    100% { left: 100%; }
-}
-
-.kebutuhan-card-content { 
-    padding: 25px; 
-    flex-grow: 1; 
-    display: flex; 
-    flex-direction: column;
-    background: rgba(255, 255, 255, 0.8);
-}
-
-.kebutuhan-card-content h3 { 
-    font-size: 1.5rem; 
-    margin-top: 0; 
-    margin-bottom: 15px; 
-    color: #0056b3;
-    background: linear-gradient(45deg, #0056b3, #007bff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: 600;
-}
-
-.kebutuhan-card-content h3 a { 
-    color: inherit; 
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.kebutuhan-card-content h3 a:hover { 
-    text-decoration: underline;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-}
-
-.kebutuhan-card-content .deskripsi-singkat { 
-    font-size: 1rem; 
-    color: #666; 
-    margin-bottom: 20px; 
-    line-height: 1.6; 
-    flex-grow: 1;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
-}
-
-.kebutuhan-progress { 
-    margin-bottom: 20px;
-    background: rgba(255, 255, 255, 0.7);
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.progress-bar-container { 
-    background: linear-gradient(135deg, #e9ecef, #f8f9fa);
-    border-radius: 12px; 
-    height: 14px; 
-    overflow: hidden; 
-    margin-top: 8px;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
-    position: relative;
-}
-
-.progress-bar-fill { 
-    background: linear-gradient(135deg, #28a745, #20c997);
-    height: 100%; 
-    width: 0%; 
-    transition: width 1s ease-in-out;
-    border-radius: 12px;
-    position: relative;
-    overflow: hidden;
-}
-
-.progress-bar-fill::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, rgba(255,255,255,0.2), rgba(255,255,255,0.4), rgba(255,255,255,0.2));
-    animation: progressGlow 2s ease-in-out infinite;
-}
-
-@keyframes progressGlow {
-    0%, 100% { transform: translateX(-100%); }
-    50% { transform: translateX(100%); }
-}
-
-.progress-text { 
-    font-size: 0.9rem; 
-    color: #444; 
-    display: flex; 
-    justify-content: space-between; 
-    margin-bottom: 5px;
-    font-weight: 600;
-}
-
-.dana-info { 
-    font-size: 1rem; 
-    margin-bottom: 10px;
-    background: rgba(23, 162, 184, 0.1);
-    padding: 12px 15px;
-    border-radius: 10px;
-    border-left: 4px solid #17a2b8;
-}
-
-.dana-info strong { 
-    color: #17a2b8;
-}
-
-/* Container footer untuk tombol bertumpuk vertikal */
-.kebutuhan-card-footer { 
-    padding: 20px 25px; 
-    border-top: 1px solid rgba(240, 240, 240, 0.5); 
-    display: flex; 
-    flex-direction: column; /* Ubah ke column untuk layout vertikal */
-    gap: 10px; /* Gap antar tombol */
-    background: rgba(248, 249, 250, 0.9);
-    backdrop-filter: blur(10px);
-}
-
-/* Style tombol dengan full width */
-.btn-detail, .btn-donasi {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.7rem 2rem;
-    color: white;
-    font-size: 0.95rem;
-    font-weight: 600;
-    text-decoration: none;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    cursor: pointer;
-    border: none;
-    width: 100%; /* Memenuhi lebar container penuh */
-    box-sizing: border-box; /* Memastikan padding tidak menambah lebar total */
-}
-
-.btn-detail {
-    background: linear-gradient(135deg,black);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-}
-
-.btn-detail:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-}
-
-.btn-donasi {
-    background: linear-gradient(135deg, #28a745, #20c997);
-    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
-}
-
-.btn-donasi:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(40, 167, 69, 0.4);
-}
-
-.pagination-wrapper { 
-    margin-top: 50px; 
-    display: flex; 
-    justify-content: center;
-    animation: contentSlideUp 1s ease-out 1.2s backwards;
-}
-
-.no-kebutuhan {
-    text-align: center;
-    padding: 80px 40px;
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(20px);
-    border-radius: 25px;
-    box-shadow: 0 15px 50px rgba(0,0,0,0.1);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    position: relative;
-    overflow: hidden;
-    animation: contentSlideUp 1s ease-out 0.8s backwards;
-}
-
-.no-kebutuhan::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 5px;
-    background: linear-gradient(90deg, #ffc107, #fd7e14);
-}
-
-.no-kebutuhan p { 
-    font-size: 1.3rem; 
-    color: #555;
-    margin-bottom: 20px;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-    line-height: 1.6;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .hero-content h1 {
-        font-size: 2.5rem;
+    :root {
+        --color-bg-hero-kebutuhan: #e3f2fd; /* Biru langit sangat muda untuk hero */
+        --color-bg-main-kebutuhan: #ffffff;
+        --color-bg-item-hover: #f8fafc;
+        --color-primary-kebutuhan: #007bff; /* Biru primer Bootstrap sebagai dasar */
+        --color-accent-kebutuhan: #ffc107; /* Kuning Bootstrap sebagai aksen */
+        --color-text-header-kebutuhan: #212529; /* Hitam Bootstrap */
+        --color-text-body-kebutuhan: #495057;   /* Abu-abu Bootstrap */
+        --color-text-muted-kebutuhan: #6c757d;
+        --color-border-kebutuhan: #dee2e6;
+        --font-family-kebutuhan: 'Nunito Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* Font yang lebih bulat dan modern */
+        --shadow-soft-kebutuhan: 0 4px 15px rgba(0, 0, 0, 0.07);
+        --shadow-medium-kebutuhan: 0 8px 25px rgba(0, 0, 0, 0.09);
+        --border-radius-kebutuhan: 0.5rem; /* 8px */
     }
-    
-    .hero-content p {
-        font-size: 1.2rem;
+
+    body {
+        font-family: var(--font-family-kebutuhan);
+        background-color: var(--color-bg-main-kebutuhan);
+        color: var(--color-text-body-kebutuhan);
+        line-height: 1.7;
+        margin: 0;
     }
-    
-    .kebutuhan-container {
-        padding: 20px 10px;
+
+    /* HERO SECTION */
+    .kebutuhan-hero-section {
+        min-height: 85vh; /* Lebih pendek dari 100vh */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, var(--color-bg-hero-kebutuhan) 0%, #ffffff 100%);
+        padding: 3rem 1.5rem;
+        text-align: center;
+        position: relative; /* Untuk parallax effect jika diinginkan */
     }
-    
-    .search-form-container {
-        margin-bottom: 30px;
-        padding: 20px;
+    .kebutuhan-hero-content {
+        max-width: 750px;
+        z-index: 1; /* Agar di atas elemen parallax background */
     }
-    
-    .search-form-container form {
-        flex-direction: column;
-        gap: 15px;
+    .kebutuhan-hero-title {
+        font-size: 2.8rem;
+        font-weight: 800; /* Lebih bold */
+        color: var(--color-text-header-kebutuhan);
+        margin-bottom: 0.75rem;
+        line-height: 1.2;
     }
-    
-    .search-form-container .form-control,
-    .search-form-container .btn-search {
+    .kebutuhan-hero-subtitle {
+        font-size: 1.15rem;
+        color: var(--color-text-muted-kebutuhan);
+        margin-bottom: 2rem;
+    }
+    .kebutuhan-hero-scroll {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: var(--color-primary-kebutuhan);
+        cursor: pointer;
+        animation: bounce 2s infinite;
+        z-index: 1;
+    }
+    .kebutuhan-hero-scroll i { font-size: 1.5rem; }
+    .kebutuhan-hero-scroll span { display: block; font-size: 0.8rem; margin-top: 0.25rem; }
+
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+        40% { transform: translateX(-50%) translateY(-10px); }
+        60% { transform: translateX(-50%) translateY(-5px); }
+    }
+
+    /* MAIN CONTENT SECTION */
+    .kebutuhan-main-content {
+        padding: 3rem 1.5rem;
+    }
+    .kebutuhan-container-public { /* Ganti nama agar tidak konflik jika ada .kebutuhan-container lain */
+        max-width: 960px;
+        margin: 0 auto;
+    }
+
+    /* SEARCH FORM */
+    .search-form-wrapper {
+        margin-bottom: 3rem;
+        background-color: var(--color-bg-main-kebutuhan);
+        padding: 1.5rem;
+        border-radius: var(--border-radius-kebutuhan);
+        box-shadow: var(--shadow-soft-kebutuhan);
+    }
+    .search-form-wrapper form {
+        display: flex;
+        gap: 0.75rem;
+    }
+    .search-form-wrapper .form-control-search { /* Custom class */
+        flex-grow: 1;
+        padding: 0.8rem 1rem;
+        font-size: 1rem;
+        border: 1px solid var(--color-border-kebutuhan);
+        border-radius: var(--border-radius-kebutuhan);
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .search-form-wrapper .form-control-search:focus {
+        border-color: var(--color-primary-kebutuhan);
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.2);
+        outline: none;
+    }
+    .search-form-wrapper .btn-search-submit { /* Custom class */
+        background-color: var(--color-primary-kebutuhan);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: var(--border-radius-kebutuhan);
+        cursor: pointer;
+        transition: background-color 0.2s;
+        font-weight: 500;
+    }
+    .search-form-wrapper .btn-search-submit:hover {
+        background-color: #0056b3; /* Biru lebih gelap */
+    }
+
+    /* KEBUTUHAN ITEM LISTING (Bukan Card) */
+    .kebutuhan-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+    .kebutuhan-list-item {
+        display: flex;
+        flex-direction: column; /* Default untuk mobile */
+        gap: 1.5rem;
+        padding: 1.75rem 0;
+        border-bottom: 1px solid var(--color-border-kebutuhan);
+        background-color: transparent; /* Tidak ada background per item */
+        transition: background-color 0.3s ease;
+        opacity: 0; /* Untuk animasi */
+        transform: translateY(30px);
+        transition-property: opacity, transform, background-color;
+        transition-duration: 0.6s;
+        transition-timing-function: ease-out;
+    }
+    .kebutuhan-list-item:last-child {
+        border-bottom: none;
+    }
+    .kebutuhan-list-item:hover {
+        background-color: var(--color-bg-item-hover); /* Efek hover halus */
+        /* box-shadow: var(--shadow-soft-kebutuhan); */ /* Opsional: shadow on hover */
+        /* border-radius: var(--border-radius-kebutuhan); */ /* Opsional: radius on hover */
+        /* padding: 1.75rem; */ /* Opsional: padding on hover */
+        /* margin: 0 -1.75rem; */ /* Opsional: agar hover full width jika ada padding di parent */
+    }
+    .kebutuhan-list-item.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .kebutuhan-item-image-link {
+        display: block;
+        width: 100%; /* Full width di mobile */
+        height: 220px; /* Tinggi gambar tetap */
+        border-radius: var(--border-radius-kebutuhan);
+        overflow: hidden;
+        background-color: #e9ecef; /* Warna placeholder */
+        flex-shrink: 0; /* Agar tidak mengecil */
+    }
+    .kebutuhan-item-image-link img {
         width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
     }
-    
-    .kebutuhan-card-footer {
-        flex-direction: column;
-        gap: 15px;
+    .kebutuhan-item-image-link:hover img {
+        transform: scale(1.05);
     }
-    
-    .btn-detail, .btn-donasi {
-        width: 100%;
+    .kebutuhan-item-placeholder { /* Jika tidak ada gambar */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--color-text-muted-kebutuhan);
     }
-    
-    .hero-section {
-        height: 100vh;
-        width: 100vw;
-        background-attachment: scroll;
-    }
-}
 
-@media (max-width: 480px) {
-    .hero-content h1 {
-        font-size: 2rem;
+    .kebutuhan-item-content {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
     }
-    
-    .hero-content p {
+    .kebutuhan-item-content h3 {
+        margin: 0 0 0.5rem 0;
+        font-size: 1.5rem; /* Judul lebih besar */
+        font-weight: 700;
+    }
+    .kebutuhan-item-content h3 a {
+        color: var(--color-text-header-kebutuhan);
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+    .kebutuhan-item-content h3 a:hover {
+        color: var(--color-primary-kebutuhan);
+    }
+    .kebutuhan-item-deskripsi {
+        font-size: 0.95rem;
+        color: var(--color-text-body-kebutuhan);
+        margin-bottom: 1rem;
+        flex-grow: 1; /* Agar deskripsi mengisi ruang */
+        line-height: 1.6;
+    }
+    .kebutuhan-item-dana-info {
+        font-size: 0.9rem;
+        color: var(--color-text-muted-kebutuhan);
+        margin-bottom: 1.25rem;
+        padding: 0.75rem;
+        background-color: #f9f9f9;
+        border-radius: var(--border-radius-sm);
+    }
+    .kebutuhan-item-dana-info strong {
+        color: var(--color-text-header-kebutuhan);
+    }
+    .kebutuhan-item-dana-info .target-dana {
+        display: block; margin-top: 0.25rem;
+    }
+    .kebutuhan-item-dana-info .sisa-hari {
+        font-style: italic;
+        margin-left: 0.5rem;
+    }
+
+
+    .kebutuhan-item-actions {
+        margin-top: auto; /* Dorong tombol ke bawah */
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap; /* Agar tombol wrap di mobile */
+    }
+    .btn-kebutuhan-detail, .btn-kebutuhan-donasi { /* Custom button classes */
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+        border-radius: var(--border-radius-kebutuhan);
+        text-decoration: none;
+        text-align: center;
+        transition: all 0.2s ease;
+        border: 1px solid transparent;
+        flex-grow: 1; /* Agar tombol mengisi ruang jika hanya 1 atau 2 */
+        min-width: 130px; /* Lebar minimum tombol */
+    }
+    .btn-kebutuhan-detail {
+        background-color: var(--color-bg-white);
+        color: var(--color-primary-kebutuhan);
+        border-color: var(--color-primary-kebutuhan);
+    }
+    .btn-kebutuhan-detail:hover {
+        background-color: var(--color-primary-kebutuhan);
+        color: white;
+    }
+    .btn-kebutuhan-donasi {
+        background-color: var(--color-accent-kebutuhan);
+        color: var(--color-text-header-kebutuhan);
+    }
+    .btn-kebutuhan-donasi:hover {
+        background-color: #ffb300; /* Kuning lebih gelap */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* PAGINATION */
+    .pagination-wrapper-custom { /* Custom class */
+        margin-top: 3rem;
+        display: flex;
+        justify-content: center;
+    }
+    /* Anda bisa menambahkan styling custom untuk pagination jika default Bootstrap tidak cukup */
+
+    /* NO KEBUTUHAN (EMPTY STATE) */
+    .no-kebutuhan-found { /* Custom class */
+        text-align: center;
+        padding: 3rem 1rem;
+        background-color: var(--color-bg-item-hover);
+        border-radius: var(--border-radius-kebutuhan);
+    }
+    .no-kebutuhan-found p {
         font-size: 1.1rem;
+        color: var(--color-text-muted-kebutuhan);
+        margin-bottom: 0.5rem;
     }
-    
-    .hero-section {
-        height: 100vh;
-        width: 100vw;
+    .no-kebutuhan-found a {
+        color: var(--color-primary-kebutuhan);
+        font-weight: 500;
     }
-}
 
+    /* Media Query untuk layout item di layar lebih besar */
+    @media (min-width: 768px) {
+        .kebutuhan-list-item {
+            flex-direction: row; /* Gambar di kiri, konten di kanan */
+            align-items: flex-start; /* Vertikal align ke atas */
+        }
+        .kebutuhan-item-image-link {
+            width: 250px; /* Lebar gambar tetap di desktop */
+            height: 180px; /* Tinggi gambar disesuaikan */
+        }
+        .btn-kebutuhan-detail, .btn-kebutuhan-donasi {
+             flex-grow: 0; /* Tombol tidak stretch full width */
+        }
+    }
 </style>
 @endpush
 
 @section('content')
-<!-- Hero Section dengan Background -->
-<div class="hero-section">
-    <div class="hero-content">
-        <title>Kebutuhan-Panti Asuhan</title>
-        <h1>KEBUTUHAN PANTI ASUHAN</h1>
-        <p>Memberikan Harapan dan Masa Depan Cerah untuk Anak-Anak<br>{{ $identitasPanti->nama_panti ?? 'Rumah Harapan' }}</p>
+<!-- HERO SECTION -->
+<section class="kebutuhan-hero-section">
+    <div class="kebutuhan-hero-content">
+        {{-- <title> sudah di @section('title') --}}
+        <h1 class="kebutuhan-hero-title">Dukung Kebutuhan Mereka</h1>
+        <p class="kebutuhan-hero-subtitle">
+            Setiap bantuan Anda, baik materi maupun non-materi, sangat berarti untuk menunjang kehidupan sehari-hari dan pendidikan anak-anak di {{ $identitasPanti->nama_panti ?? 'Rumah Harapan' }}.
+        </p>
     </div>
-    <div class="hero-scroll-indicator" onclick="document.querySelector('.main-content').scrollIntoView({behavior: 'smooth'})">
-        <!-- <i>⬇</i> -->
-        <!-- <span>Scroll untuk melihat kebutuhan</span> -->
+    <div class="kebutuhan-hero-scroll" onclick="document.querySelector('.kebutuhan-main-content').scrollIntoView({behavior: 'smooth'})">
+        <i class="fas fa-chevron-down"></i>
+        <span>Lihat Kebutuhan</span>
     </div>
-</div>
+</section>
 
-<!-- Main Content Section -->
-<div class="main-content">
-    <div class="kebutuhan-container">
+<!-- MAIN CONTENT SECTION -->
+<div class="kebutuhan-main-content">
+    <div class="kebutuhan-container-public">
         {{-- Formulir Pencarian --}}
-        <div class="search-form-container">
+        <div class="search-form-wrapper">
             <form action="{{ route('public.kebutuhan.index') }}" method="GET">
-                <input type="text" name="search" class="form-control" placeholder="Cari kebutuhan..." value="{{ request('search') }}">
-                <button type="submit" class="btn-search">Cari</button>
+                <input type="text" name="search" class="form-control-search" placeholder="Cari berdasarkan nama kebutuhan..." value="{{ request('search') }}">
+                <button type="submit" class="btn-search-submit"><i class="fas fa-search me-1"></i> Cari</button>
             </form>
         </div>
 
         @if($kebutuhanItems->isNotEmpty())
-            <div class="kebutuhan-grid">
+            <ul class="kebutuhan-list">
                 @foreach($kebutuhanItems as $item)
-                <div class="kebutuhan-card">
-                    @if($item->gambar_kebutuhan)
-                    <a href="{{ route('public.kebutuhan.show', $item->slug) }}" class="kebutuhan-card-img">
-                        <img src="{{ Storage::url($item->gambar_kebutuhan) }}" alt="{{ $item->nama_kebutuhan }}">
+                <li class="kebutuhan-list-item">
+                    <a href="{{ route('public.kebutuhan.show', $item->slug) }}" class="kebutuhan-item-image-link">
+                        @if($item->gambar_kebutuhan)
+                            <img src="{{ Storage::url($item->gambar_kebutuhan) }}" alt="{{ $item->nama_kebutuhan }}">
+                        @else
+                            <div class="kebutuhan-item-placeholder">
+                                <span>Gambar Tidak Tersedia</span>
+                            </div>
+                        @endif
                     </a>
-                    @else
-                    <a href="{{ route('public.kebutuhan.show', $item->slug) }}" class="kebutuhan-card-placeholder">
-                        <span>Tidak Ada Gambar</span>
-                    </a>
-                    @endif
-                    <div class="kebutuhan-card-content">
+                    <div class="kebutuhan-item-content">
                         <h3><a href="{{ route('public.kebutuhan.show', $item->slug) }}">{{ $item->nama_kebutuhan }}</a></h3>
-                        <p class="deskripsi-singkat">{{ Str::limit(strip_tags($item->deskripsi), 120) }}</p>
+                        <p class="kebutuhan-item-deskripsi">{{ Str::limit(strip_tags($item->deskripsi), 150) }}</p>
 
                         @if($item->target_dana > 0)
-                        <div class="kebutuhan-progress">
-                            <div class="progress-text">
-                                <span>Terkumpul: <strong>Rp {{ number_format($item->dana_terkumpul, 0, ',', '.') }}</strong></span>
-                                <span>{{ number_format($item->persentase_terkumpul, 0) }}%</span>
-                            </div>
-                            <div class="progress-bar-container">
-                                <div class="progress-bar-fill" style="width: {{ $item->persentase_terkumpul }}%;"></div>
-                            </div>
-                            <div class="progress-text" style="margin-top: 5px;">
-                                 <span>Target: Rp {{ number_format($item->target_dana, 0, ',', '.') }}</span>
-                                 @if($item->sisa_hari !== null)
-                                 <span class="text-muted"><small>{{ $item->sisa_hari }} hari lagi</small></span>
-                                 @endif
-                            </div>
+                        <div class="kebutuhan-item-dana-info">
+                            <!-- <span>Terkumpul: <strong>Rp {{ number_format($item->dana_terkumpul, 0, ',', '.') }}</strong></span> -->
+                            <span class="target-dana">Target: Rp {{ number_format($item->target_dana, 0, ',', '.') }}</span>
+                            @if($item->sisa_hari !== null)
+                            <span class="sisa-hari text-muted-kebutuhan"><small><i class="fas fa-clock me-1"></i>{{ $item->sisa_hari }} hari lagi</small></span>
+                            @endif
                         </div>
                         @else
-                        <div class="dana-info">
-                            <p>Kebutuhan non-dana atau target belum ditentukan.</p>
+                        <div class="kebutuhan-item-dana-info">
+                            <p>Ini adalah kebutuhan barang atau non-finansial.</p>
                         </div>
                         @endif
-                    </div>
-                    <div class="kebutuhan-card-footer">
-                        <a href="{{ route('public.kebutuhan.show', $item->slug) }}" class="btn-detail">Lihat Detail</a>
-                        {{-- Tombol Donasi mengarah ke halaman donasi dengan parameter --}}
-                        <a href="{{ route('public.donasi.index', ['kebutuhan_id' => $item->id, 'nama_kebutuhan' => $item->nama_kebutuhan]) }}" class="btn-donasi">Donasi Sekarang</a>
-                    </div>
-                </div>
-                @endforeach
-            </div>
 
-            <div class="pagination-wrapper">
-                {{ $kebutuhanItems->appends(request()->query())->links() }} {{-- appends() untuk menjaga parameter search saat paginasi --}}
+                        <div class="kebutuhan-item-actions">
+                            <a href="{{ route('public.kebutuhan.show', $item->slug) }}" class="btn-kebutuhan-detail"><i class="fas fa-info-circle me-1"></i> Detail</a>
+                            <a href="{{ route('public.donasi.index', ['kebutuhan_id' => $item->id, 'nama_kebutuhan' => $item->nama_kebutuhan]) }}" class="btn-kebutuhan-donasi"><i class="fas fa-hand-holding-heart me-1"></i> Donasi</a>
+                        </div>
+                    </div>
+                </li>
+                @endforeach
+            </ul>
+
+            @if ($kebutuhanItems->hasPages())
+            <div class="pagination-wrapper-custom">
+                {{ $kebutuhanItems->appends(request()->query())->links() }}
             </div>
+            @endif
         @else
-            <div class="no-kebutuhan">
-                <p>Saat ini belum ada kebutuhan mendesak yang dipublikasikan atau sesuai pencarian Anda.</p>
-                <p>Silakan cek kembali nanti atau <a href="{{ route('public.donasi.index') }}">berdonasi secara umum</a>.</p>
+            <div class="no-kebutuhan-found">
+                <p><i class="fas fa-search fa-2x mb-2 text-muted-kebutuhan"></i></p>
+                <p>Oops! Belum ada kebutuhan yang sesuai dengan pencarian Anda atau belum ada kebutuhan yang dipublikasikan saat ini.</p>
+                <p>Anda tetap dapat membantu dengan <a href="{{ route('public.donasi.index') }}">berdonasi secara umum</a> untuk operasional panti.</p>
             </div>
         @endif
     </div>
@@ -663,46 +392,33 @@
 
 @push('scripts')
 <script>
-    // Script untuk animasi progress bar
-    document.addEventListener('DOMContentLoaded', function () {
-        const progressBars = document.querySelectorAll('.progress-bar-fill');
-        progressBars.forEach(bar => {
-            const width = bar.style.width;
-            bar.style.width = '0%';
-            setTimeout(() => {
-                bar.style.width = width;
-            }, 500);
-        });
-        
-        // Intersection Observer untuk animasi card
-        const cards = document.querySelectorAll('.kebutuhan-card');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }, index * 150);
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        cards.forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(50px)';
-            card.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-            observer.observe(card);
-        });
-        
-        // Smooth scroll parallax effect
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const heroSection = document.querySelector('.hero-section');
-            if (heroSection) {
-                heroSection.style.transform = `translateY(${scrolled * 0.5}px)`;
+document.addEventListener('DOMContentLoaded', function () {
+    const items = document.querySelectorAll('.kebutuhan-list-item');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                // Tambahkan delay berdasarkan index untuk efek stagger
+                setTimeout(() => {
+                    entry.target.classList.add('is-visible');
+                }, index * 100); // delay 100ms per item
+                // observer.unobserve(entry.target); // Jika ingin animasi hanya sekali
             }
         });
+    }, { threshold: 0.1 }); // Trigger saat 10% item terlihat
+
+    items.forEach(item => {
+        observer.observe(item);
     });
 
+    // Parallax sederhana untuk hero (opsional)
+    const heroSection = document.querySelector('.kebutuhan-hero-section');
+    if (heroSection) {
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            // Kurangi efek parallax agar tidak terlalu drastis
+            heroSection.style.backgroundPositionY = `${scrolled * 0.3}px`;
+        });
+    }
+});
 </script>
 @endpush

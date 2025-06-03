@@ -62,48 +62,54 @@
                         <div class="alert alert-success">{{ session('success_harian') }}</div>
                     @endif
 
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Hari</th>
-                                    <th>Jadwal Operasional</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($daysOrder as $namaHari)
-                                    <tr>
-                                        <td class="fw-bold align-middle">{{ $namaHari }}</td>
-                                        <td>
-                                            @if(isset($jadwalHarianGrouped[$namaHari]) && $jadwalHarianGrouped[$namaHari]->isNotEmpty())
-                                                <ul class="list-unstyled mb-0">
-                                                    @foreach($jadwalHarianGrouped[$namaHari]->sortBy(['urutan', 'jam_buka']) as $slot)
-                                                        <li>
-                                                            <span class="badge {{ $slot->status_operasional == 'Buka' ? 'bg-success' : 'bg-danger' }}">
-                                                                {{ \Carbon\Carbon::parse($slot->jam_buka)->format('H:i') }} - {{ \Carbon\Carbon::parse($slot->jam_tutup)->format('H:i') }}
-                                                            </span>
-                                                            {{ $slot->status_operasional }}
-                                                            @if($slot->keterangan)
-                                                                <small class="text-muted">({{ $slot->keterangan }})</small>
-                                                            @endif
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            @else
-                                                <span class="text-muted"><em>Belum diatur / Libur</em></span>
-                                            @endif
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="{{ route('admin.operasional.harian.atur', ['hari' => strtolower($namaHari)]) }}" class="btn btn-sm btn-primary">
-                                                <i class="fas fa-edit"></i> Atur Jadwal
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                    {{-- Di dalam tab Jadwal Harian di admin.operasional.index.blade.php --}}
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Hari</th>
+                <th>Jam Buka Kunjungan</th>
+                <th>Jam Tutup Kunjungan</th>
+                <th>Status</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($daysOrder as $hari)
+                @php
+                    $jadwalEntry = $jadwalHarian[$hari] ?? null;
+                    $isBuka = $jadwalEntry && $jadwalEntry->status_operasional === 'Buka';
+                @endphp
+                <tr>
+                    <td><strong>{{ $hari }}</strong></td>
+                    <td>{{ $isBuka && $jadwalEntry->jam_buka ? \Carbon\Carbon::parse($jadwalEntry->jam_buka)->format('H:i') : '-' }}</td>
+                    <td>{{ $isBuka && $jadwalEntry->jam_tutup ? \Carbon\Carbon::parse($jadwalEntry->jam_tutup)->format('H:i') : '-' }}</td>
+                    <td>
+                        @if($isBuka)
+                            <span class="badge bg-success">Buka</span>
+                        @else
+                            <span class="badge bg-danger">Tutup</span>
+                        @endif
+                    </td>
+                    <td>
+                        <a href="{{ route('admin.operasional.harian.edit_or_create', ['hari' => strtolower($hari)]) }}" class="btn btn-sm btn-info">
+                            <i class="fas fa-edit"></i> Atur
+                        </a>
+                        @if($jadwalEntry) {{-- Tampilkan tombol hapus hanya jika ada entri --}}
+                        <form action="{{ route('admin.operasional.harian.destroy_by_day', ['hari' => strtolower($hari)]) }}" method="POST" class="d-inline" onsubmit="return confirm('Anda yakin ingin mereset jadwal hari {{ $hari }}?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i> Reset
+                            </button>
+                        </form>
+                        @endif
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
                 </div>
             </div>
         </div>

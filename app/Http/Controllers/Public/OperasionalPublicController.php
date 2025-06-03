@@ -1,51 +1,52 @@
 <?php
 
+// App\Http\Controllers\Public\OperasionalPublicController.php
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
-use App\Models\IdentitasPanti; // Jika perlu untuk title atau info lain
+use App\Models\IdentitasPanti;
 use App\Models\JadwalOperasionalHarian;
 use App\Models\JadwalOperasionalKhusus;
-use Carbon\Carbon; // Untuk manipulasi tanggal
+use Carbon\Carbon;
 
 class OperasionalPublicController extends Controller
 {
     public function index()
     {
-        $identitasPanti = IdentitasPanti::first(); // Opsional, jika diperlukan
+        
 
-        // Ambil Jadwal Harian, urutkan sesuai keinginan
+        $identitasPanti = IdentitasPanti::first();
+
+        // Ambil data jadwal harian dan format sebagai array asosiatif
+        $jadwalHarianData = JadwalOperasionalHarian::all()->keyBy('hari');
         $daysOrder = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
-        $jadwalHarianGrouped = JadwalOperasionalHarian::orderByRaw(
-                                    "FIELD(hari, '" . implode("','", $daysOrder) . "')"
-                                )
-                                ->orderBy('urutan') // Urutan slot dalam satu hari
-                                ->orderBy('jam_buka')
-                                ->get()
-                                ->groupBy('hari');
+        $jadwalHarianTampil = [];
 
-        // Pastikan semua hari ada di array, meskipun tidak ada jadwal, agar urutan di view benar
-        $jadwalHarianTampilan = collect($daysOrder)->mapWithKeys(function ($hari) use ($jadwalHarianGrouped) {
-            return [$hari => $jadwalHarianGrouped->get($hari, collect())];
-        });
+        foreach ($daysOrder as $hari) {
+            $entry = $jadwalHarianData->get($hari);
+            if ($entry && $entry->status_operasional === 'Buka' && $entry->jam_buka && $entry->jam_tutup) {
+                $jadwalHarianTampil[$hari] = [
+                    'jam_buka' => Carbon::parse($entry->jam_buka)->format('H:i'),
+                    'jam_tutup' => Carbon::parse($entry->jam_tutup)->format('H:i'),
+                    'status' => 'Buka',
+                ];
+            } else {
+                $jadwalHarianTampil[$hari] = [
+                    'jam_buka' => '-',
+                    'jam_tutup' => '-',
+                    'status' => 'Tutup',
+                ];
+            }
+        }
 
-        // Ambil Jadwal Khusus yang akan datang atau beberapa waktu ke belakang & depan
-        // Misalnya, dari 7 hari lalu sampai 30 hari ke depan
-        $today = Carbon::today();
-        $jadwalKhusus = JadwalOperasionalKhusus::where('tanggal', '>=', $today->copy()->subDays(7))
-                                             ->where('tanggal', '<=', $today->copy()->addDays(30))
-                                             ->orderBy('tanggal', 'asc') // Tampilkan dari tanggal terdekat
-                                             ->get();
+        // Ambil jadwal khusus untuk bulan ini dan beberapa bulan ke depan (misalnya)
+        $tanggalMulai = Carbon::now()->startOfMonth();
+        $tanggalSelesai = Carbon::now()->addMonths(2)->endOfMonth(); // Tampilkan untuk 2 bulan ke depan
 
-        // Atau jika ingin menampilkan semua jadwal khusus yang ada:
-        // $jadwalKhusus = JadwalOperasionalKhusus::orderBy('tanggal', 'asc')->get();
+        $jadwalKhusus = JadwalOperasionalKhusus::whereBetween('tanggal', [$tanggalMulai, $tanggalSelesai])
+                                              ->orderBy('tanggal', 'asc')
+                                              ->get();
 
-
-        return view('public.operasional_public', compact(
-            'identitasPanti',
-            'jadwalHarianTampilan',
-            'jadwalKhusus',
-            'daysOrder' // Kirim ini untuk iterasi hari yang terurut
-        ));
+        return view('public.operasional_index', compact('identitasPanti', 'jadwalHarianTampil', 'jadwalKhusus', 'daysOrder'));
     }
 }

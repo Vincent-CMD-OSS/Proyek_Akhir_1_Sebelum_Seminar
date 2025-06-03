@@ -6,167 +6,124 @@ use App\Http\Controllers\Controller;
 use App\Models\JadwalOperasionalHarian;
 use App\Models\JadwalOperasionalKhusus;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule; // Untuk validasi
+use Illuminate\Validation\Rule;
 
 class OperasionalController extends Controller
 {
-    /**
-     * Menampilkan halaman utama pengelolaan jadwal operasional.
-     */
     public function index()
     {
-        // Ambil data jadwal harian dan kelompokkan
-        $jadwalHarianGrouped = JadwalOperasionalHarian::orderByRaw("FIELD(hari, 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu')")
-                                            ->orderBy('urutan')
-                                            ->orderBy('jam_buka')
-                                            ->get()
-                                            ->groupBy('hari');
-
+        // Ambil data jadwal harian, pastikan hanya ada satu entri per hari jika logikanya sudah diubah
+        // Kita akan menggunakan array asosiatif untuk memudahkan akses di view
+        $jadwalHarianData = JadwalOperasionalHarian::all()->keyBy('hari');
         $jadwalKhusus = JadwalOperasionalKhusus::orderBy('tanggal', 'desc')->paginate(10, ['*'], 'khusus_page');
         $daysOrder = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
 
-        // Ganti nama variabel agar sesuai dengan view yang baru
-        return view('admin.operasional.index', compact('jadwalHarianGrouped', 'jadwalKhusus', 'daysOrder'));
+        // Siapkan array default untuk setiap hari jika belum ada datanya
+        $jadwalHarian = [];
+        foreach ($daysOrder as $hari) {
+            $jadwalHarian[$hari] = $jadwalHarianData->get($hari); // Bisa null jika belum ada
+        }
+
+        return view('admin.operasional.index', compact('jadwalHarian', 'jadwalKhusus', 'daysOrder'));
     }
 
-    // --- CRUD Jadwal Operasional Harian (Pendekatan Baru) ---
+    // Method aturJadwalHarian dan updateJadwalHarianPerHari DIHAPUS
 
     /**
-     * Menampilkan form untuk mengatur jadwal slot untuk hari tertentu.
+     * Menampilkan form untuk mengatur/membuat jadwal untuk satu hari.
+     * Jika sudah ada, tampilkan form edit. Jika belum, form tambah (dengan hari sudah terpilih).
      */
-    public function aturJadwalHarian(string $hari) // $hari akan 'senin', 'selasa', dst.
+    public function editOrCreateHarian(string $hari) // $hari akan 'senin', 'selasa', dst.
     {
-        $namaHariProper = ucfirst($hari); // 'Senin', 'Selasa'
+        $namaHariProper = ucfirst($hari);
         $validDays = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
 
         if (!in_array($namaHariProper, $validDays)) {
             abort(404, 'Hari tidak valid.');
         }
 
-        $jadwalSlots = JadwalOperasionalHarian::where('hari', $namaHariProper)
-                                            ->orderBy('urutan')
-                                            ->orderBy('jam_buka')
-                                            ->get();
+        $jadwal = JadwalOperasionalHarian::where('hari', $namaHariProper)->first();
 
-        return view('admin.operasional.harian.atur', compact('namaHariProper', 'jadwalSlots'));
-    }
+        // Jika belum ada data, kita buat instance baru agar form bisa di-prefill harinya
+        if (!$jadwal) {
+            $jadwal = new JadwalOperasionalHarian(['hari' => $namaHariProper]);
+        }
 
-    // --- CRUD Jadwal Operasional Harian ---
-
-    /**
-     * Menampilkan form untuk membuat slot jadwal harian baru.
-     */
-    public function createHarian()
-    {
-        return view('admin.operasional.harian.create');
+        return view('admin.operasional.harian.edit_or_create', compact('jadwal', 'namaHariProper'));
     }
 
     /**
-     * Menyimpan slot jadwal harian baru ke database.
+     * Menyimpan atau memperbarui jadwal untuk satu hari.
      */
-    public function storeHarian(Request $request)
-    {
-        $validatedData = $request->validate([
-            'hari' => ['required', Rule::in(['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'])],
-            'jam_buka' => 'required|date_format:H:i',
-            'jam_tutup' => 'required|date_format:H:i|after:jam_buka',
-            'status_operasional' => ['required', Rule::in(['Buka', 'Tutup'])],
-            'keterangan' => 'nullable|string|max:255',
-            'urutan' => 'required|integer|min:0',
-        ], [
-            'jam_tutup.after' => 'Jam tutup harus setelah jam buka.'
-        ]);
-
-        JadwalOperasionalHarian::create($validatedData);
-
-        return redirect()->route('admin.operasional.index')
-                         ->with('success', 'Slot jadwal harian berhasil ditambahkan.')
-                         ->with('active_tab', '#harian-tab-pane'); // Untuk mengarahkan ke tab harian
-    }
-
-    /**
-     * Menampilkan form untuk mengedit slot jadwal harian.
-     */
-    public function editHarian(JadwalOperasionalHarian $jadwalOperasionalHarian) // Route Model Binding
-    {
-        return view('admin.operasional.harian.edit', compact('jadwalOperasionalHarian'));
-    }
-
-    /**
-     * Memperbarui slot jadwal harian di database.
-     */
-    public function updateJadwalHarianPerHari(Request $request, string $hari)
+    public function storeOrUpdateHarian(Request $request, string $hari)
     {
         $namaHariProper = ucfirst($hari);
-        // ... (validasi hari) ...
+        $validDays = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
 
-        // PERBAIKAN: Gunakan helper validator()
-        $validator = validator($request->all(), [ // <--- PERUBAHAN DI SINI
-            'slots' => 'nullable|array',
-            'slots.*.jam_buka' => 'required_with:slots.*.jam_tutup,slots.*.status_operasional|nullable|date_format:H:i',
-            'slots.*.jam_tutup' => 'required_with:slots.*.jam_buka,slots.*.status_operasional|nullable|date_format:H:i|after:slots.*.jam_buka',
-            'slots.*.status_operasional' => ['required_with:slots.*.jam_buka,slots.*.jam_tutup', 'nullable', Rule::in(['Buka', 'Tutup'])],
-            'slots.*.keterangan' => 'nullable|string|max:255',
-            'slots.*.urutan' => 'required_with:slots.*.jam_buka|nullable|integer|min:0',
+        if (!in_array($namaHariProper, $validDays)) {
+            return redirect()->route('admin.operasional.index')
+                             ->with('error', 'Hari tidak valid.')
+                             ->with('active_tab', '#harian-tab-pane');
+        }
+
+        // Validasi: jam_buka dan jam_tutup WAJIB jika status 'Buka'
+        // Jika user mengosongkan jam, berarti hari itu 'Tutup'
+        $validatedData = $request->validate([
+            'jam_buka' => 'nullable|required_with:jam_tutup|date_format:H:i',
+            'jam_tutup' => 'nullable|required_with:jam_buka|date_format:H:i|after_or_equal:jam_buka',
         ], [
-            'slots.*.jam_tutup.after' => 'Jam tutup pada slot #:position harus setelah jam buka.',
-            'slots.*.jam_buka.required_with' => 'Jam buka pada slot #:position wajib diisi jika field lain pada slot tersebut diisi.',
-            // ...
+            'jam_buka.required_with' => 'Jam buka wajib diisi jika jam tutup diisi.',
+            'jam_tutup.required_with' => 'Jam tutup wajib diisi jika jam buka diisi.',
+            'jam_tutup.after_or_equal' => 'Jam tutup harus setelah atau sama dengan jam buka.',
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->route('admin.operasional.harian.atur', ['hari' => $hari])
-                ->withErrors($validator)
-                ->withInput();
-        }
+        // Tentukan status berdasarkan input jam
+        // Jika jam_buka dan jam_tutup diisi, maka status "Buka"
+        // Jika salah satu atau keduanya kosong, maka "Tutup" (dan jam akan di-null-kan)
+        $isBuka = !empty($validatedData['jam_buka']) && !empty($validatedData['jam_tutup']);
 
-        // ... (sisa logika) ...
-        JadwalOperasionalHarian::where('hari', $namaHariProper)->delete();
-
-        if ($request->has('slots')) {
-            foreach ($request->slots as $index => $slotData) {
-                if (!empty($slotData['jam_buka']) && !empty($slotData['jam_tutup']) && !empty($slotData['status_operasional'])) { // Pastikan field inti diisi
-                    JadwalOperasionalHarian::create([
-                        'hari' => $namaHariProper,
-                        'jam_buka' => $slotData['jam_buka'],
-                        'jam_tutup' => $slotData['jam_tutup'],
-                        'status_operasional' => $slotData['status_operasional'],
-                        'keterangan' => $slotData['keterangan'] ?? null,
-                        'urutan' => $slotData['urutan'] ?? $index,
-                    ]);
-                }
-            }
-        }
+        JadwalOperasionalHarian::updateOrCreate(
+            ['hari' => $namaHariProper], // Kunci untuk mencari atau membuat baru
+            [
+                'jam_buka' => $isBuka ? $validatedData['jam_buka'] : null,
+                'jam_tutup' => $isBuka ? $validatedData['jam_tutup'] : null,
+                'status_operasional' => $isBuka ? 'Buka' : 'Tutup',
+                // 'keterangan' dan 'urutan' tidak lagi digunakan/diisi di sini
+            ]
+        );
 
         return redirect()->route('admin.operasional.index')
-                         ->with('success_harian', 'Jadwal untuk hari ' . $namaHariProper . ' berhasil diperbarui.')
+                         ->with('success_harian', 'Jadwal untuk hari ' . $namaHariProper . ' berhasil disimpan.')
                          ->with('active_tab', '#harian-tab-pane');
     }
 
-
+    // Method createHarian, storeHarian (versi lama), editHarian, destroyHarian DIHAPUS
+    // karena sudah digabung ke editOrCreateHarian dan storeOrUpdateHarian.
+    // Jika kamu tetap ingin ada tombol hapus per hari (untuk mereset ke default/belum diatur),
+    // kita bisa buat method destroy baru.
 
     /**
-     * Menghapus slot jadwal harian dari database.
+     * Menghapus (mereset) jadwal untuk satu hari.
      */
-    public function destroyHarian(JadwalOperasionalHarian $jadwalOperasionalHarian)
+    public function destroyHarianByDay(string $hari)
     {
-        $jadwalOperasionalHarian->delete();
-
+        $namaHariProper = ucfirst($hari);
+        JadwalOperasionalHarian::where('hari', $namaHariProper)->delete();
         return redirect()->route('admin.operasional.index')
-                         ->with('success', 'Slot jadwal harian berhasil dihapus.')
+                         ->with('success_harian', 'Jadwal untuk hari ' . $namaHariProper . ' berhasil dihapus/direset.')
                          ->with('active_tab', '#harian-tab-pane');
     }
 
 
-    // --- CRUD Jadwal Operasional Khusus (Akan diisi nanti) ---
+    // --- CRUD Jadwal Operasional Khusus (Tetap sama seperti sebelumnya) ---
     public function createKhusus()
     {
-        // Placeholder
         return view('admin.operasional.khusus.create');
     }
 
     public function storeKhusus(Request $request)
     {
+        // ... (validasi dan logic storeKhusus tetap sama)
         $validatedData = $request->validate([
             'tanggal' => 'required|date|unique:jadwal_operasional_khusus,tanggal',
             'nama_acara_libur' => 'required|string|max:255',
@@ -181,27 +138,24 @@ class OperasionalController extends Controller
             'jam_tutup_khusus.after' => 'Jam tutup khusus harus setelah jam buka khusus.',
         ]);
 
-        // Jika status bukan 'Jam Khusus', pastikan jam buka/tutup khusus di-null-kan
         if ($validatedData['status_operasional'] !== 'Jam Khusus') {
             $validatedData['jam_buka_khusus'] = null;
             $validatedData['jam_tutup_khusus'] = null;
         }
-
         JadwalOperasionalKhusus::create($validatedData);
-
         return redirect()->route('admin.operasional.index')
                          ->with('success', 'Jadwal khusus berhasil ditambahkan.')
-                         ->with('active_tab', '#khusus-tab-pane'); // Mengarahkan ke tab khusus
+                         ->with('active_tab', '#khusus-tab-pane');
     }
 
     public function editKhusus(JadwalOperasionalKhusus $jadwalOperasionalKhusus)
     {
-        // Placeholder
         return view('admin.operasional.khusus.edit', compact('jadwalOperasionalKhusus'));
     }
 
     public function updateKhusus(Request $request, JadwalOperasionalKhusus $jadwalOperasionalKhusus)
     {
+        // ... (validasi dan logic updateKhusus tetap sama)
         $validatedData = $request->validate([
             'tanggal' => ['required', 'date', Rule::unique('jadwal_operasional_khusus', 'tanggal')->ignore($jadwalOperasionalKhusus->id)],
             'nama_acara_libur' => 'required|string|max:255',
@@ -220,9 +174,7 @@ class OperasionalController extends Controller
             $validatedData['jam_buka_khusus'] = null;
             $validatedData['jam_tutup_khusus'] = null;
         }
-
         $jadwalOperasionalKhusus->update($validatedData);
-
         return redirect()->route('admin.operasional.index')
                          ->with('success', 'Jadwal khusus berhasil diperbarui.')
                          ->with('active_tab', '#khusus-tab-pane');
@@ -231,7 +183,6 @@ class OperasionalController extends Controller
     public function destroyKhusus(JadwalOperasionalKhusus $jadwalOperasionalKhusus)
     {
         $jadwalOperasionalKhusus->delete();
-
         return redirect()->route('admin.operasional.index')
                          ->with('success', 'Jadwal khusus berhasil dihapus.')
                          ->with('active_tab', '#khusus-tab-pane');

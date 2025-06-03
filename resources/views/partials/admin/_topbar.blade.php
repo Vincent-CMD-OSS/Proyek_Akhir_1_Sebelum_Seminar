@@ -10,22 +10,8 @@
     </div>
 
     <div class="topbar-right">
-        <div class="search-bar">
-            {{-- Ganti input dengan styling Bootstrap jika perlu atau gunakan custom style dari admin-styles.css --}}
-            <input type="text" class="form-control" placeholder="Type here...">
-        </div>
-        <a href="#" class="btn-online-builder">Online Builder</a>
 
         @if (Auth::check())
-            <button class="topbar-icon-btn">
-                <i class="fas fa-star"></i> <span class="badge bg-info text-dark">11,141</span> {{-- Sesuaikan kelas badge Bootstrap --}}
-            </button>
-            <button class="topbar-icon-btn">
-                <i class="fas fa-cog"></i>
-            </button>
-            <button class="topbar-icon-btn">
-                <i class="fas fa-bell"></i>
-            </button>
 
             {{-- Info User & Tombol Logout (sesuaikan dengan kebutuhan Anda) --}}
             <div class="dropdown">
