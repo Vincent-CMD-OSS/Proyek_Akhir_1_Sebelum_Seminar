@@ -376,7 +376,7 @@
             font-size: 0.9rem;
         }
         .galeri-grid {
-            grid-template-columns: 1fr; /* Satu kolom di mobile */
+            grid-template-columns: 1fr; 
             gap: 25px;
         }
         .galeri-card-title {
