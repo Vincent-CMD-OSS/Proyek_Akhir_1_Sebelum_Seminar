@@ -4,7 +4,8 @@
         Your browser does not support the video tag.
     </video>
     <div class="hero-overlay">
-        <h1 class="hero-title">CHILDREN FLOURISHING, HAHAHAHAHAHAHAHAHAHAHAHAHAHAHA</h1>
+        <h1 class="hero-title">CHILDREN FLOURISHING</h1>
+        <h1 class="hero-title">OKE BERHASIL !!!</h1>
         <p class="lead">Memberikan Harapan dan Masa Depan Cerah untuk Anak-Anak Indonesia</p>
     </div>
 </section>
