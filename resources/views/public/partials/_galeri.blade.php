@@ -1,21 +1,17 @@
-{{-- resources/views/public/partials/_galeri.blade.php --}}
-
 @push('styles')
 <style>
-    /* Variabel Warna Biru & Ukuran Tombol */
     :root {
         --galeri-btn-blue-primary: #0d6efd;
         --galeri-btn-blue-hover: #0b5ed7;
         --galeri-btn-blue-focus-shadow: rgba(13, 110, 253, 0.25);
         --galeri-btn-text-light: #ffffff;
-        --galeri-btn-padding-y: 0.5rem;      /* Padding Y standar */
-        --galeri-btn-padding-x: 1rem;       /* Padding X standar */
-        --galeri-btn-font-size: 0.875rem;   /* Font size standar (14px) */
+        --galeri-btn-padding-y: 0.5rem;
+        --galeri-btn-padding-x: 1rem;
+        --galeri-btn-font-size: 0.875rem;
         --galeri-btn-line-height: 1.5;
-        --galeri-btn-border-radius: 0.375rem; /* Radius standar (6px) */
+        --galeri-btn-border-radius: 0.375rem;
     }
 
-    /* Base Button Style */
     .btn-galeri-base {
         display: inline-flex; align-items: center; justify-content: center;
         font-weight: 500; text-align: center; text-decoration: none;
@@ -29,25 +25,22 @@
     }
     .btn-galeri-base i { margin-right: 0.4rem; font-size: 0.9em; }
 
-    /* Tombol Biru Solid */
     .btn-galeri-biru {
         background-color: var(--galeri-btn-blue-primary); color: var(--galeri-btn-text-light); border-color: var(--galeri-btn-blue-primary);
     }
     .btn-galeri-biru:hover { background-color: var(--galeri-btn-blue-hover); border-color: var(--galeri-btn-blue-hover); color: var(--galeri-btn-text-light); }
     .btn-galeri-biru:focus { box-shadow: 0 0 0 0.25rem var(--galeri-btn-blue-focus-shadow); outline: 0; }
 
-    /* Tombol Biru Outline */
     .btn-outline-galeri-biru {
         color: var(--galeri-btn-blue-primary); border-color: var(--galeri-btn-blue-primary); background-color: transparent;
     }
     .btn-outline-galeri-biru:hover { color: var(--galeri-btn-text-light); background-color: var(--galeri-btn-blue-primary); border-color: var(--galeri-btn-blue-primary); }
     .btn-outline-galeri-biru:focus { box-shadow: 0 0 0 0.25rem var(--galeri-btn-blue-focus-shadow); outline: 0; }
 
-    /* Modifier untuk Ukuran Tombol Lebih Besar */
     .btn-galeri-lg {
         padding: 0.75rem 1.75rem;
-        font-size: 1rem; /* 16px */
-        border-radius: 0.5rem; /* 8px */
+        font-size: 1rem;
+        border-radius: 0.5rem;
     }
 </style>
 @endpush

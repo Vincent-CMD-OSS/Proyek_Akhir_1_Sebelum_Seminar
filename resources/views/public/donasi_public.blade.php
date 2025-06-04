@@ -23,7 +23,7 @@
 
     body {
         font-family: var(--font-family-donasi);
-        background-color: var(--color-bg-page-donasi); /* Latar belakang halaman utama */
+        background-color: var(--color-bg-page-donasi);
         color: var(--color-text-body-donasi);
         line-height: 1.7;
         margin: 0;
@@ -32,7 +32,6 @@
 
     .donasi-page-container { }
 
-    /* HERO DONASI 100VH (Sama seperti sebelumnya) */
     .donasi-hero-full-screen {
         height: 100vh;
         display: flex;
@@ -55,14 +54,11 @@
     .donasi-hero-cta-button:hover { background: linear-gradient(135deg, var(--color-primary-donasi-darker), var(--color-primary-donasi)); transform: translateY(-3px) scale(1.02); box-shadow: 0 6px 20px rgba(135, 206, 235, 0.4); color: white; }
     .donasi-hero-cta-button i { margin-right: 0.75rem; }
 
-    /* WRAPPER UNTUK SETIAP SECTION KONTEN */
     .donasi-content-section {
-        padding: 5rem 1.5rem; /* Padding atas & bawah lebih besar untuk jarak */
+        padding: 5rem 1.5rem;
         background-color: var(--color-bg-content-donasi);
-        /* border-bottom dihapus, pemisahan dari background halaman */
     }
-    .donasi-content-section:nth-child(even) { /* Selang-seling jika ingin variasi bg (opsional) */
-         /* background-color: var(--color-bg-page-donasi); */ /* Jika ingin selang-seling dengan bg halaman */
+    .donasi-content-section:nth-child(even) {
     }
 
 
@@ -71,10 +67,8 @@
         margin: 0 auto;
     }
 
-    /* STYLING UNTUK BLOK INFORMASI */
     .donasi-info-block {
         margin-bottom: 3rem;
-        /* Kelas .animate-on-scroll akan ditambahkan di HTML */
     }
     .donasi-info-block:last-child { margin-bottom: 0; }
     .donasi-info-block h2 { font-size: 1.9rem; font-weight: 600; color: var(--color-text-header-donasi); margin-top: 0; margin-bottom: 1.5rem; display: flex; align-items: center; border-bottom: 2px solid var(--color-primary-donasi); padding-bottom: 0.75rem; }
@@ -89,12 +83,10 @@
     .alert-custom-info-donasi { background-color: #e7f5ff; border-left: 5px solid var(--color-primary-donasi); color: #004085; padding: 1.25rem; border-radius: var(--border-radius-button-donasi); margin-top: 1.75rem; font-size: 0.95rem; }
     .alert-custom-info-donasi i { margin-right: 0.6rem; }
 
-    /* FORM DONASI & KONTAK CARD (dalam satu section) */
     .donasi-form-kontak-grid {
         display: grid;
         grid-template-columns: 2fr 1fr;
         gap: 2.5rem;
-        /* Kelas .animate-on-scroll akan ditambahkan di HTML */
     }
     .donasi-form-main {
         background-color: var(--color-bg-content-donasi);
@@ -128,30 +120,25 @@
     .donasi-kontak-sidebar a { color: var(--color-primary-donasi-darker); text-decoration: none; font-weight: 500; transition: color 0.2s ease; }
     .donasi-kontak-sidebar a:hover { color: var(--color-primary-donasi); text-decoration: underline; }
 
-
-    /* ANIMATION ON SCROLL STYLES */
     .animate-on-scroll {
         opacity: 0;
-        transform: translateY(50px); /* Mulai dari bawah */
+        transform: translateY(50px);
         transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     }
     .animate-on-scroll.is-visible {
         opacity: 1;
         transform: translateY(0);
     }
-    /* Delay untuk elemen yang berurutan (opsional) */
     .animate-on-scroll.delay-1 { transition-delay: 0.1s; }
     .animate-on-scroll.delay-2 { transition-delay: 0.2s; }
     .animate-on-scroll.delay-3 { transition-delay: 0.3s; }
 
-
-    /* Responsive Adjustments */
     @media (max-width: 992px) {
         .donasi-form-kontak-grid { grid-template-columns: 1fr; }
         .donasi-kontak-sidebar { margin-top: 2.5rem; padding-left: 0; border-left: none; border-top: 1px solid var(--color-border-soft-donasi); padding-top: 2rem; }
     }
     @media (max-width: 768px) {
-        .donasi-content-section { padding: 3rem 1rem; } /* Padding dikurangi sedikit */
+        .donasi-content-section { padding: 3rem 1rem; }
         .donasi-hero-main-title { font-size: 2.4rem; }
         .donasi-hero-main-subtitle { font-size: 1.1rem; }
         .donasi-info-block h2 { font-size: 1.6rem; }
@@ -327,7 +314,6 @@
         const formDonasi = document.getElementById('formDonasiWA');
         if(formDonasi) {
             formDonasi.addEventListener('submit', function(event) {
-                // ... (validasi form sama seperti sebelumnya) ...
                 const teleponInput = document.getElementById('telepon_donatur');
                 const donasiUntukSelect = document.getElementById('donasi_untuk');
 
@@ -360,23 +346,21 @@
             }
         }
 
-        // ANIMATION ON SCROLL
         const animatedElements = document.querySelectorAll('.animate-on-scroll');
 
         if (animatedElements.length > 0) {
             const observerOptions = {
-                threshold: 0.15, // Trigger saat 15% elemen terlihat
-                rootMargin: "0px 0px -50px 0px" // Offset dari bawah viewport
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
             };
 
             const observer = new IntersectionObserver(function(entries, observerInstance) {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
-                        // observerInstance.unobserve(entry.target); // Hapus jika ingin animasi hanya sekali
+                        observerInstance.unobserve(entry.target); // Ini ya
                     } else {
-                        // Opsional: Hapus 'is-visible' jika ingin animasi berulang saat scroll keluar-masuk
-                        // entry.target.classList.remove('is-visible');
+                        entry.target.classList.remove('is-visible'); // Ini juga ya (Entah yang mana yang mungkin)
                     }
                 });
             }, observerOptions);

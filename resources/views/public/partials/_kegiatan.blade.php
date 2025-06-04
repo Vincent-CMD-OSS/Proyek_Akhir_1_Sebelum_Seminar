@@ -25,8 +25,8 @@
 					<div class="btn-wrap">
                         <a href="kegiatanpanti" class="btn-donasi">Selengkapnya <i class="icon-arrow-right"></i></a>
                     </div>
-				</div><!--kegiatan-block-->
+				</div>
 			</div>
-		</div><!--row-->
-	</div><!--container-->
+		</div>
+	</div>
 </section>

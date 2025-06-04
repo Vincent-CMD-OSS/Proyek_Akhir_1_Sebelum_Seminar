@@ -1,5 +1,3 @@
-<!-- Section Donasi -->
- 
 <section id="donasi" class="donasi-section">
     <div class="container">
         <div class="donasi-wrapper">
@@ -31,7 +29,7 @@
                     .donasi-image img {
                         width: 100%;
                         height: auto;
-                        max-height: 400px; /* Batasi tinggi maksimum kalau paragrafnya pendek */
+                        max-height: 400px;
                         object-fit: cover;
                         display: block;
                         margin-bottom: 20px;

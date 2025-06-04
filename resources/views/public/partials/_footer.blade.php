@@ -1,4 +1,3 @@
-{{-- resources/views/public/partials/_footer.blade.php --}}
 <footer id="footer" class="site-footer">
     <div class="container">
         <div class="row footer-widgets">

@@ -1,4 +1,3 @@
-{{-- resources/views/public/partials/_navbar.blade.php --}}
 <nav id="site-navbar" class="navbar navbar-expand-lg fixed-top">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">

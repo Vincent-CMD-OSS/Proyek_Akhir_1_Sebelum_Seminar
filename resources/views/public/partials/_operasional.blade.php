@@ -1,4 +1,3 @@
-{{-- resources/views/public/partials/_operasional.blade.php --}}
 <section id="operasional" class="operasional-section">
     <div class="operasional-background-blob"></div>
     <div class="container position-relative" style="z-index: 2;">

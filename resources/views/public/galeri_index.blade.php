@@ -6,12 +6,9 @@
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/public_galeri.css') }}"> 
 <style>
-    /* ========================================
-       GLOBAL STYLES (Bisa dipindah ke file CSS terpisah jika mau)
-       ======================================== */
     :root {
-        --primary-color: #667eea; /* Biru keunguan */
-        --secondary-color: #764ba2; /* Ungu */
+        --primary-color: #667eea;
+        --secondary-color: #764ba2;
         --text-light: #ffffff;
         --text-dark: #333333;
         --text-muted: #666666;
@@ -19,7 +16,7 @@
         --bg-white: #ffffff;
         --border-color: #eeeeee;
         --shadow-color: rgba(0, 0, 0, 0.08);
-        --font-sans: 'Poppins', sans-serif; /* Contoh font, ganti sesuai preferensi */
+        --font-sans: 'Poppins', sans-serif; 
     }
 
     body {
@@ -28,9 +25,6 @@
         line-height: 1.6;
     }
 
-    /* ========================================
-       NEW FULLSCREEN HERO SECTION
-       ======================================== */
     .galeri-hero-full {
         height: 100vh;
         background-image: url('https://images.unsplash.com/photo-1505236858219-8359eb29e329?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80'); /* Ganti dengan URL gambar Anda */
@@ -47,14 +41,14 @@
         box-sizing: border-box;
     }
 
-    .galeri-hero-full::before { /* Overlay gelap untuk kontras teks */
+    .galeri-hero-full::before {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(0, 0, 0, 0.5); /* Sesuaikan opasitas overlay */
+        background: rgba(0, 0, 0, 0.5);
         z-index: 1;
     }
 
@@ -65,7 +59,7 @@
     }
 
     .galeri-hero-full-title {
-        font-size: 3.5rem; /* Ukuran font untuk judul hero */
+        font-size: 3.5rem;
         font-weight: 700;
         margin-bottom: 1rem;
         line-height: 1.2;
@@ -73,7 +67,7 @@
     }
 
     .galeri-hero-full-slogan {
-        font-size: 1.3rem; /* Ukuran font untuk slogan */
+        font-size: 1.3rem;
         font-weight: 400;
         opacity: 0.9;
         margin-bottom: 2rem;
@@ -103,7 +97,6 @@
         color: var(--text-light);
     }
 
-    /* Optional: Scroll down indicator */
     .scroll-down-indicator {
         position: absolute;
         bottom: 30px;
@@ -111,7 +104,7 @@
         transform: translateX(-50%);
         z-index: 3;
         color: var(--text-light);
-        font-size: 2rem; /* Ukuran ikon panah */
+        font-size: 2rem;
         animation: bounce 2s infinite;
     }
 
@@ -127,20 +120,12 @@
         }
     }
 
-
-    /* ========================================
-       GALERI INDEX STYLES (Penyesuaian jika ada hero full)
-       ======================================== */
-
-    /* Galeri Grid Section - Hapus padding atas jika ada hero full screen */
     .galeri-grid-section {
-        padding: 80px 0; /* Sesuaikan padding atas jika perlu, atau biarkan jika sudah pas */
+        padding: 80px 0;
         background: var(--bg-white);
     }
 
-    /* Pastikan section pertama setelah hero full tidak ada margin atas yang aneh */
     .galeri-hero-full + .galeri-grid-section {
-       /* Tidak perlu margin-top khusus jika padding section sudah diatur */
     }
 
     .galeri-grid-container {
@@ -149,14 +134,14 @@
         padding: 0 20px;
     }
 
-    .galeri-section-title { /* Judul untuk section galeri jika diperlukan */
+    .galeri-section-title {
         text-align: center;
         font-size: 2.5rem;
         font-weight: 600;
         margin-bottom: 1rem;
         color: var(--text-dark);
     }
-    .galeri-section-subtitle { /* Sub-judul untuk section galeri jika diperlukan */
+    .galeri-section-subtitle {
         text-align: center;
         font-size: 1.1rem;
         color: var(--text-muted);
@@ -169,12 +154,10 @@
 
     .galeri-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); /* Sedikit disesuaikan */
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
         gap: 30px;
-        /* margin-top: 40px; Dihapus, diatur oleh .galeri-section-subtitle jika ada */
     }
 
-    /* Galeri Card */
     .galeri-card {
         background: var(--bg-white);
         border-radius: 12px;
@@ -192,7 +175,7 @@
 
     .galeri-card-img-wrapper {
         position: relative;
-        height: 250px; /* Bisa disesuaikan */
+        height: 250px;
         overflow: hidden;
     }
 
@@ -235,16 +218,16 @@
 
 
     .galeri-card-body {
-        padding: 20px 25px 25px; /* Disesuaikan paddingnya */
+        padding: 20px 25px 25px;
         flex-grow: 1;
         display: flex;
         flex-direction: column;
     }
 
     .galeri-card-title {
-        font-size: 1.3rem; /* Disesuaikan */
+        font-size: 1.3rem;
         font-weight: 600;
-        margin-bottom: 10px; /* Disesuaikan */
+        margin-bottom: 10px;
         line-height: 1.4;
     }
 
@@ -259,7 +242,7 @@
 
     .galeri-card-text {
         color: var(--text-muted);
-        font-size: 0.95rem; /* Disesuaikan */
+        font-size: 0.95rem;
         line-height: 1.7;
         margin-bottom: 20px;
         flex-grow: 1;
@@ -267,7 +250,7 @@
 
     .galeri-card-readmore {
         align-self: flex-start;
-        padding: 10px 22px; /* Disesuaikan */
+        padding: 10px 22px;
         border: 2px solid var(--primary-color);
         color: var(--primary-color);
         text-decoration: none;
@@ -285,7 +268,7 @@
     .galeri-card-footer {
         padding: 0 25px 20px;
         color: #999;
-        font-size: 0.85rem; /* Disesuaikan */
+        font-size: 0.85rem;
         border-top: 1px solid var(--border-color);
         margin-top: 15px;
         padding-top: 15px;
@@ -295,8 +278,7 @@
         margin-right: 10px;
     }
 
-    /* Empty State */
-    .empty-state-container { /* Wrapper untuk empty state */
+    .empty-state-container {
         padding: 60px 20px;
         text-align: center;
         background-color: var(--bg-light);
@@ -318,12 +300,11 @@
         font-size: 1rem;
     }
 
-    /* Pagination */
     .pagination-wrapper {
-        margin-top: 60px; /* Lebih banyak spasi */
+        margin-top: 60px;
         text-align: center;
     }
-    .pagination .page-item .page-link { /* Styling dasar untuk pagination Bootstrap */
+    .pagination .page-item .page-link {
         color: var(--primary-color);
     }
     .pagination .page-item.active .page-link {
@@ -335,13 +316,9 @@
         color: #adb5bd;
     }
     .pagination .page-item .page-link:hover {
-        background-color: #e9ecef; /* Warna hover netral */
+        background-color: #e9ecef;
     }
 
-
-    /* ========================================
-       RESPONSIVE DESIGN
-       ======================================== */
     @media (max-width: 992px) {
         .galeri-hero-full-title {
             font-size: 3rem;
@@ -357,7 +334,7 @@
 
     @media (max-width: 768px) {
         .galeri-hero-full {
-            height: auto; /* Biarkan tinggi menyesuaikan konten di mobile atau buat min-height */
+            height: auto; 
             min-height: 70vh;
             padding: 80px 20px;
         }
@@ -368,7 +345,7 @@
             font-size: 1.1rem;
         }
         .scroll-down-indicator {
-            display: none; /* Sembunyikan di mobile jika terlalu mengganggu */
+            display: none;
         }
         .galeri-section-title {
             font-size: 2rem;
@@ -413,9 +390,8 @@
         }
     }
 
-    /* Animation - simpel tanpa hover effects */
-    .animate-fade-in-hero { /* Animasi khusus untuk konten hero */
-        animation: fadeInHero 1s ease-out 0.5s forwards; /* Delay sedikit */
+    .animate-fade-in-hero { 
+        animation: fadeInHero 1s ease-out 0.5s forwards;
         opacity: 0;
         transform: translateY(20px);
     }
@@ -430,7 +406,7 @@
         }
     }
 
-    .animate-section { /* Animasi untuk card galeri saat scroll */
+    .animate-section { 
         opacity: 0;
         transform: translateY(30px);
         transition: opacity 0.6s ease-out, transform 0.6s ease-out;
@@ -534,20 +510,18 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // Animation on scroll untuk card galeri
     const sections = document.querySelectorAll('.animate-section');
 
     if (sections.length > 0) {
         const observerOptions = {
-            threshold: 0.1, // Muncul saat 10% elemen terlihat
-            rootMargin: '0px 0px -50px 0px' // Offset sedikit dari bawah viewport
+            threshold: 0.1, 
+            rootMargin: '0px 0px -50px 0px' 
         };
 
         const sectionObserver = new IntersectionObserver(function (entries, observer) {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                    // observer.unobserve(entry.target); // Opsional: hentikan observasi setelah animasi
                 }
             });
         }, observerOptions);
@@ -557,7 +531,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Smooth scroll untuk tombol CTA di hero
     const ctaButton = document.querySelector('.galeri-hero-cta-button');
     const scrollIndicator = document.querySelector('.scroll-down-indicator');
     const targetSection = document.getElementById('galeri-items-section');

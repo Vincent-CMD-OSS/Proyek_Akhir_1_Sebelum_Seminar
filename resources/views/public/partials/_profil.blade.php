@@ -1,4 +1,3 @@
-{{-- resources/views/public/partials/_profil.blade.php --}}
 <section id="profil" class="profil-section">
     <div class="container content-container">
         <div class="row align-items-center gy-5 gx-lg-4">
