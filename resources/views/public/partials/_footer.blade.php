@@ -25,10 +25,10 @@
                 <h4 class="footer-title">Akses Cepat</h4>
                 <ul class="list-unstyled quick-links">
                     <li><a href="{{ route('home') }}">Beranda</a></li>
-                    <li><a href="#profil">Tentang Kami</a></li>
-                    <li><a href="#galeri">Galeri Digital</a></li>
-                    <li><a href="#operasional">Jam Operasional</a></li>
-                    <li><a href="#donasi">Donasi</a></li>
+                    <li><a href="{{ route('public.profil_panti.index') }}">Tentang Kami</a></li>
+                    <li><a href="{{ route('public.galeri.index') }}">Galeri Digital</a></li>
+                    <li><a href="{{ route('public.operasional.index') }}">Jam Operasional</a></li>
+                    <li><a href="{{ route('public.donasi.index') }}">Donasi</a></li>
                 </ul>
             </div>
 

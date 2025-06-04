@@ -2,7 +2,11 @@
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">
             @if(isset($identitasPanti) && $identitasPanti->logo_path)
-                <img src="{{ asset('storage/' . $identitasPanti->logo_path) }}" alt="{{ $identitasPanti->nama_panti ?? 'Rumah Harapan' }} Logo" style="max-height: 40px; width: auto;">
+                <!-- <img src="{{ asset('storage/' . $identitasPanti->logo_path) }}" alt="{{ $identitasPanti->nama_panti ?? 'Rumah Harapan' }} Logo" style="max-height: 40px; width: auto;"> -->
+                <!-- <img src="{{ asset('assets/images/logo.png') }}" alt="{{ $identitasPanti->nama_panti ?? 'Rumah Harapan' }} Logo" style="max-height: 40px; width: auto;"> -->
+                <img src="/assets/images/logo.png"
+                    alt="Logo"
+                    style="max-height: 40px; width: auto; position: absolute; top: 10px; left: 10px; z-index: 9999; background: white;">
             @else
                 {{ $identitasPanti->nama_panti ?? 'Rumah Harapan' }}
             @endif

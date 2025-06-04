@@ -162,7 +162,6 @@
 
     <section class="donasi-hero-full-screen">
         <div class="donasi-hero-content-wrapper">
-            <span class="donasi-hero-icon-main">💖</span>
             <h1 class="donasi-hero-main-title">Berbagi Kebaikan, Mengubah Kehidupan</h1>
             <p class="donasi-hero-main-subtitle">
                 Setiap donasi Anda, sekecil apapun, adalah langkah besar menuju masa depan yang lebih cerah untuk anak-anak di {{ $identitasPanti->nama_panti ?? 'Panti Asuhan Rumah Harapan' }}.

@@ -13,7 +13,7 @@
                     <p>Bersama, kita bisa membangun masa depan yang lebih cerah.</p>
                     
                     <div class="btn-wrap">
-                        <a href="#" class="btn-donasi">Selengkapnya <i class="icon-arrow-right"></i></a>
+                        <a href="{{ route('public.donasi.index') }}" class="btn-donasi">Selengkapnya <i class="icon-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
