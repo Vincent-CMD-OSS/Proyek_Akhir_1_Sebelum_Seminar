@@ -1,6 +1,5 @@
-{{-- resources/views/public/partials/_hero.blade.php --}}
 <section class="hero-section" id="home">
-    <video class="hero-video" autoplay muted loop playsinline> {{-- Tambahkan playsinline untuk iOS --}}
+    <video class="hero-video" autoplay muted loop playsinline>
         <source src="{{ asset('videos/hero-video.mp4') }}" type="video/mp4">
         Your browser does not support the video tag.
     </video>

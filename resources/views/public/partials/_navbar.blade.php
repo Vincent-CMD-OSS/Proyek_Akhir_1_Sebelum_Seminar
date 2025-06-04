@@ -40,11 +40,9 @@
                 </li>
                 <li class="nav-item">
                     {{-- Tombol Login Admin tidak perlu 'active' state --}}
-                    <a class="nav-link" href="{{ route('login') }}">Login Admin</a>
+                    <a class="nav-link" href="{{ route('login') }}" class="btn btn-donasi-navbar ms-lg-3">Login Admin</a>
                 </li>
             </ul>
-            {{-- Pastikan route untuk tombol Donasi Sekarang sudah benar --}}
-            <a href="{{ route('public.donasi.index') }}" class="btn btn-donasi-navbar ms-lg-3">Donasi Sekarang</a>
         </div>
     </div>
 </nav>

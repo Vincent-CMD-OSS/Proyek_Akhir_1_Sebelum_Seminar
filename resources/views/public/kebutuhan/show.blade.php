@@ -5,58 +5,68 @@
 @push('styles')
 <style>
     :root {
-        --color-bg-detail-kebutuhan: #f8fafc; /* Latar belakang terang */
-        --color-bg-white-kebutuhan: #ffffff;
-        --color-primary-detail: #007bff; /* Biru primer */
-        --color-accent-detail: #ffc107;   /* Kuning aksen */
-        --color-text-header-detail: #212529;
-        --color-text-body-detail: #343a40;
-        --color-text-muted-detail: #6c757d;
-        --color-border-detail: #dee2e6;
-        --font-family-detail: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* Font yang clear */
-        --shadow-soft-detail: 0 3px 10px rgba(0, 0, 0, 0.06);
-        --shadow-medium-detail: 0 6px 15px rgba(0, 0, 0, 0.08);
-        --border-radius-detail: 0.625rem; /* 10px */
+        --color-primary-detail: #005A9C; /* Biru korporat yang lebih dalam */
+        --color-secondary-detail: #F5A623; /* Oranye sebagai aksen hangat */
+        --color-bg-page-detail: #f4f7f6; /* Background halaman yang sangat netral (off-white/abu muda) */
+        --color-bg-content-detail: #ffffff;
+        --color-text-header-detail: #1a2533; /* Abu-abu sangat gelap, hampir hitam */
+        --color-text-body-detail: #4a5568;  /* Abu-abu lebih lembut untuk body */
+        --color-text-muted-detail: #718096; /* Abu-abu untuk teks muted */
+        --color-border-soft-detail: #e2e8f0; /* Border yang halus */
+        --color-border-medium-detail: #cbd5e0;
+        --font-family-detail: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif; /* Font sans-serif standar yang clear */
+        --shadow-card-detail: 0 4px 12px rgba(0, 0, 0, 0.08); /* Shadow untuk card */
+        --shadow-subtle-detail: 0 2px 6px rgba(0, 0, 0, 0.05);
+        --border-radius-card-detail: 0.75rem; /* 12px */
+        --border-radius-button-detail: 0.5rem; /* 8px */
     }
 
     body {
         font-family: var(--font-family-detail);
-        background-color: var(--color-bg-white-kebutuhan);
+        background-color: var(--color-bg-page-detail); /* Background halaman utama */
         color: var(--color-text-body-detail);
-        line-height: 1.75;
+        line-height: 1.7;
         margin: 0;
     }
 
     .kebutuhan-detail-page-wrapper {
-        padding-top: 70px; /* Jarak dari navbar jika fixed-top */
+        padding-top: 2.5rem; /* Jarak atas */
         padding-bottom: 4rem;
     }
 
     .kebutuhan-detail-main-container {
-        max-width: 800px; /* Kontainer utama lebih sempit untuk fokus */
+        max-width: 850px; /* Kontainer sedikit lebih lebar */
         margin: 0 auto;
         padding: 0 1.5rem;
     }
 
-    /* HEADER KEBUTUHAN */
-    .kebutuhan-detail-header {
-        text-align: center;
+    /* Box utama untuk konten detail */
+    .kebutuhan-detail-content-box {
+        background-color: var(--color-bg-content-detail);
+        border-radius: var(--border-radius-card-detail);
+        box-shadow: var(--shadow-card-detail);
+        overflow: hidden; /* Untuk border radius pada gambar jika gambar di paling atas */
         margin-bottom: 2.5rem;
-        padding: 2rem 0;
-        border-bottom: 1px solid var(--color-border-detail);
+    }
+
+    /* HEADER KEBUTUHAN (di dalam content box) */
+    .kebutuhan-detail-header {
+        padding: 2rem 2rem 1.5rem; /* Padding disesuaikan */
+        text-align: left; /* Rata kiri untuk header */
+        border-bottom: 1px solid var(--color-border-soft-detail);
     }
     .kebutuhan-detail-title {
-        font-size: 2.5rem;
+        font-size: 2.2rem; /* Disesuaikan */
         font-weight: 700;
         color: var(--color-text-header-detail);
-        margin-bottom: 0.75rem;
+        margin-bottom: 1rem; /* Jarak lebih ke meta info */
         line-height: 1.3;
     }
     .kebutuhan-header-meta-info {
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
-        gap: 0.5rem 1.5rem; /* Jarak antar item meta */
+        justify-content: flex-start; /* Rata kiri */
+        gap: 0.75rem 2rem; /* Jarak antar item meta */
         font-size: 0.9rem;
         color: var(--color-text-muted-detail);
     }
@@ -65,163 +75,173 @@
         align-items: center;
     }
     .meta-info-item i {
-        margin-right: 0.5rem;
-        color: var(--color-primary-detail); /* Ikon biru */
+        margin-right: 0.6rem;
+        color: var(--color-primary-detail);
+        font-size: 1.1em; /* Ikon sedikit lebih besar */
     }
     .meta-info-item strong {
         color: var(--color-text-body-detail);
         font-weight: 500;
     }
 
-    /* GAMBAR UTAMA */
+    /* GAMBAR UTAMA (di dalam content box) */
     .kebutuhan-main-image-wrapper {
-        margin-bottom: 2.5rem;
-        border-radius: var(--border-radius-detail);
-        overflow: hidden;
-        box-shadow: var(--shadow-medium-detail);
-        background-color: #e9ecef; /* Placeholder background */
-        min-height: 250px; /* Tinggi minimum jika tidak ada gambar */
+        /* margin-bottom: 0; Dihapus jika gambar bagian dari content box */
+        background-color: #f0f3f5; /* Placeholder background lebih netral */
+        min-height: 300px;
+        max-height: 550px; /* Batasi tinggi gambar agar tidak terlalu dominan */
         display: flex;
         align-items: center;
         justify-content: center;
+        overflow: hidden; /* Jika gambar lebih besar dari wrapper */
     }
     .kebutuhan-main-image {
         width: 100%;
-        height: auto;
-        max-height: 500px; /* Batasi tinggi gambar */
-        object-fit: cover; /* Atau 'contain' jika tidak ingin cropping */
+        height: 100%; /* Fill wrapper height jika aspect ratio berbeda */
+        object-fit: cover; /* Atau 'contain' */
         display: block;
     }
     .kebutuhan-image-placeholder-text {
         color: var(--color-text-muted-detail);
         font-style: italic;
+        padding: 2rem;
+        text-align: center;
     }
 
-    /* INFORMASI DANA (Jika ada) */
+    /* KONTEN SETELAH GAMBAR (di dalam content box) */
+    .kebutuhan-detail-body-content {
+        padding: 2rem;
+    }
+
+    /* INFORMASI DANA */
     .kebutuhan-dana-summary {
-        background-color: var(--color-bg-detail-kebutuhan);
-        padding: 1.75rem;
-        border-radius: var(--border-radius-detail);
-        margin-bottom: 2.5rem;
-        box-shadow: var(--shadow-soft-detail);
-        text-align: center;
+        background-color: var(--color-bg-page-detail); /* Background sedikit beda untuk kontras */
+        padding: 1.5rem; /* Padding dikurangi */
+        border-radius: var(--border-radius-button-detail); /* Radius lebih kecil */
+        margin-bottom: 2rem;
+        border: 1px solid var(--color-border-soft-detail);
     }
     .dana-summary-grid {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around; /* Sebar merata */
+        display: grid; /* Menggunakan grid untuk alignment yg lebih baik */
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Kolom responsif */
         gap: 1.5rem;
-    }
-    .dana-summary-item {
-        flex-basis: 200px; /* Lebar dasar item */
         text-align: center;
     }
+    .dana-summary-item {
+        /* flex-basis dihapus karena sudah pakai grid */
+    }
     .dana-summary-value {
-        font-size: 1.6rem;
-        font-weight: 600;
+        font-size: 1.8rem; /* Lebih menonjol */
+        font-weight: 700; /* Bold */
         color: var(--color-primary-detail);
         display: block;
-        margin-bottom: 0.25rem;
+        margin-bottom: 0.3rem;
     }
     .dana-summary-label {
-        font-size: 0.9rem;
+        font-size: 0.85rem; /* Lebih kecil */
         color: var(--color-text-muted-detail);
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
-    .dana-not-applicable { /* Jika bukan donasi dana */
+    .dana-not-applicable {
         font-style: italic;
         color: var(--color-text-muted-detail);
+        padding: 1rem 0; /* Padding jika hanya teks ini */
+        text-align: center;
     }
 
     /* DESKRIPSI KEBUTUHAN */
     .kebutuhan-description-content {
-        background-color: var(--color-bg-white-kebutuhan);
-        padding: 2rem;
-        border-radius: var(--border-radius-detail);
-        margin-bottom: 2.5rem;
-        box-shadow: var(--shadow-soft-detail);
+        /* Background dan shadow dihapus karena sudah di .kebutuhan-detail-content-box */
+        /* padding: 0; Dihapus, padding sudah di .kebutuhan-detail-body-content */
+        margin-bottom: 2rem;
     }
-    .kebutuhan-description-content .content-section-heading { /* Judul section kecil */
-        font-size: 1.5rem;
+    .kebutuhan-description-content .content-section-heading {
+        font-size: 1.4rem; /* Disesuaikan */
         font-weight: 600;
         color: var(--color-text-header-detail);
         margin-bottom: 1.25rem;
-        padding-bottom: 0.5rem;
+        padding-bottom: 0.6rem;
         border-bottom: 2px solid var(--color-primary-detail);
         display: inline-block;
     }
-    .description-prose { /* Styling untuk konten dari editor WYSIWYG */
-        font-size: 1.05rem;
+    .description-prose {
+        font-size: 1rem; /* Ukuran font body standar */
         color: var(--color-text-body-detail);
     }
-    .description-prose p { margin-bottom: 1.25rem; }
+    .description-prose p { margin-bottom: 1.25rem; line-height: 1.75; }
     .description-prose strong { font-weight: 600; color: var(--color-text-header-detail); }
-    .description-prose ul, .description-prose ol { padding-left: 1.5rem; margin-bottom: 1.25rem; }
-    .description-prose li { margin-bottom: 0.5rem; }
+    .description-prose ul, .description-prose ol { padding-left: 1.75rem; margin-bottom: 1.25rem; }
+    .description-prose li { margin-bottom: 0.6rem; }
+    .description-prose a { color: var(--color-primary-detail); text-decoration: none; }
+    .description-prose a:hover { text-decoration: underline; }
+
 
     /* TOMBOL AKSI (CTA) */
     .kebutuhan-cta-section {
         text-align: center;
-        margin-bottom: 3rem;
+        padding: 1rem 0 0; /* Padding atas, tanpa margin bawah */
     }
-    .btn-donate-detail-page { /* Tombol donasi utama */
-        background: linear-gradient(135deg, var(--color-accent-detail), #ffb300); /* Gradasi kuning */
-        color: var(--color-text-header-detail);
-        padding: 0.9rem 2.5rem;
-        font-size: 1.1rem;
+    .btn-donate-detail-page {
+        background: var(--color-secondary-detail); /* Warna aksen oranye */
+        color: #ffffff; /* Teks putih agar kontras dengan oranye */
+        padding: 0.9rem 2.8rem; /* Padding disesuaikan */
+        font-size: 1.05rem; /* Sedikit lebih kecil */
         font-weight: 600;
         text-decoration: none;
-        border-radius: 50px; /* Tombol sangat bulat */
-        display: inline-flex; /* Untuk ikon */
+        border-radius: var(--border-radius-button-detail); /* Radius konsisten */
+        display: inline-flex;
         align-items: center;
-        transition: all 0.25s ease;
-        box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
+        border: none; /* Tanpa border */
+        transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+        box-shadow: 0 4px 10px rgba(0,0,0, 0.1); /* Shadow netral */
     }
     .btn-donate-detail-page:hover {
-        transform: translateY(-2px) scale(1.02);
-        box-shadow: 0 6px 15px rgba(255, 193, 7, 0.4);
-        color: var(--color-text-header-detail); /* Pastikan warna teks tetap saat hover */
+        background-color: #e09114; /* Oranye lebih gelap */
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0,0,0, 0.15);
+        color: #ffffff;
     }
     .btn-donate-detail-page i {
         margin-right: 0.75rem;
-        font-size: 1.2em;
+        font-size: 1.1em;
     }
 
-    /* KEBUTUHAN LAINNYA */
+    /* KEBUTUHAN LAINNYA (di luar content box utama) */
     .kebutuhan-related-section {
-        padding-top: 2rem;
-        border-top: 1px solid var(--color-border-detail);
+        padding-top: 3rem;
+        margin-top: 2rem; /* Jarak dari box konten utama */
+        /* border-top: 1px solid var(--color-border-medium-detail); Dihapus, pemisahan visual dari margin */
     }
-    .kebutuhan-related-title { /* Judul "Kebutuhan Lainnya" */
+    .kebutuhan-related-title {
         text-align: center;
-        font-size: 1.8rem;
+        font-size: 1.7rem; /* Disesuaikan */
         font-weight: 600;
         color: var(--color-text-header-detail);
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
     }
     .related-items-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.75rem;
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); /* Ukuran card disesuaikan */
+        gap: 2rem; /* Jarak antar card */
     }
     .related-item-card {
-        background-color: var(--color-bg-white-kebutuhan);
-        border-radius: var(--border-radius-detail);
-        box-shadow: var(--shadow-soft-detail);
-        overflow: hidden; /* Untuk gambar */
+        background-color: var(--color-bg-content-detail);
+        border-radius: var(--border-radius-card-detail);
+        box-shadow: var(--shadow-card-detail);
+        overflow: hidden;
         display: flex;
         flex-direction: column;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
     .related-item-card:hover {
-        transform: translateY(-4px);
-        box-shadow: var(--shadow-medium-detail);
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     }
     .related-item-image-link {
         display: block;
-        height: 180px; /* Tinggi gambar tetap */
-        background-color: #f0f0f0; /* Placeholder */
+        height: 170px; /* Tinggi gambar disesuaikan */
+        background-color: #f0f3f5;
     }
     .related-item-image {
         width: 100%;
@@ -230,12 +250,21 @@
     }
     .related-item-image-placeholder {
         display: flex;
+        flex-direction: column; /* Ikon dan teks vertikal */
         align-items: center;
         justify-content: center;
         height: 100%;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         color: var(--color-text-muted-detail);
+        text-align: center;
+        padding: 1rem;
     }
+     .related-item-image-placeholder i { /* Styling ikon placeholder */
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        opacity: 0.5;
+    }
+
     .related-item-content {
         padding: 1.25rem;
         flex-grow: 1;
@@ -243,9 +272,9 @@
         flex-direction: column;
     }
     .related-item-title {
-        font-size: 1.15rem;
+        font-size: 1.1rem; /* Disesuaikan */
         font-weight: 600;
-        margin: 0 0 0.5rem 0;
+        margin: 0 0 0.6rem 0;
     }
     .related-item-title a {
         color: var(--color-text-header-detail);
@@ -255,23 +284,23 @@
         color: var(--color-primary-detail);
     }
     .related-item-meta-info {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         color: var(--color-text-muted-detail);
         margin-bottom: 1rem;
-        flex-grow: 1; /* Agar tombol tetap di bawah */
+        flex-grow: 1;
     }
-    .btn-related-detail { /* Tombol untuk item terkait */
-        background-color: var(--color-bg-detail-kebutuhan);
+    .btn-related-detail {
+        background-color: transparent; /* Tombol outline */
         color: var(--color-primary-detail);
-        border: 1px solid var(--color-primary-detail);
-        padding: 0.5rem 1rem;
+        border: 2px solid var(--color-primary-detail); /* Border lebih tebal */
+        padding: 0.6rem 1rem; /* Padding disesuaikan */
         font-size: 0.85rem;
         font-weight: 500;
-        border-radius: var(--border-radius-kebutuhan);
+        border-radius: var(--border-radius-button-detail);
         text-decoration: none;
         text-align: center;
-        display: block; /* Full width di card */
-        margin-top: auto; /* Dorong ke bawah */
+        display: block;
+        margin-top: auto;
         transition: background-color 0.2s, color 0.2s;
     }
     .btn-related-detail:hover {
@@ -279,26 +308,32 @@
         color: white;
     }
 
-    /* Animasi loading awal (opsional) */
-    .kebutuhan-detail-container.initial-loading {
+    /* Animasi loading awal (sama seperti sebelumnya) */
+    .kebutuhan-detail-main-container.initial-loading {
         opacity: 0;
         transform: translateY(15px);
         transition: opacity 0.5s ease-out, transform 0.5s ease-out;
     }
-    .kebutuhan-detail-container.loaded {
+    .kebutuhan-detail-main-container.loaded {
         opacity: 1;
         transform: translateY(0);
     }
 
     @media (max-width: 768px) {
-        .kebutuhan-detail-page-wrapper { padding-top: 60px; }
+        .kebutuhan-detail-page-wrapper { padding-top: 1.5rem; }
         .kebutuhan-detail-main-container { padding: 0 1rem; }
-        .kebutuhan-detail-title { font-size: 2rem; }
-        .kebutuhan-header-meta-info { flex-direction: column; align-items: center; gap: 0.25rem; }
-        .dana-summary-grid { flex-direction: column; gap: 1rem; }
-        .dana-summary-item { flex-basis: auto; }
-        .kebutuhan-description-content { padding: 1.5rem; }
-        .related-items-grid { grid-template-columns: 1fr; } /* Satu kolom di mobile */
+        .kebutuhan-detail-title { font-size: 1.8rem; }
+        .kebutuhan-header-meta-info { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+        .dana-summary-grid { grid-template-columns: 1fr; gap: 1rem; } /* Satu kolom untuk dana summary */
+        .kebutuhan-description-content .content-section-heading { font-size: 1.25rem; }
+        .related-items-grid { grid-template-columns: 1fr; }
+        .kebutuhan-detail-header, .kebutuhan-detail-body-content { padding: 1.5rem; }
+    }
+    @media (max-width: 576px) {
+         .kebutuhan-main-image-wrapper { min-height: 200px; }
+         .kebutuhan-detail-title { font-size: 1.6rem; }
+         .related-item-card { margin-bottom: 1.5rem; } /* Jarak antar card terkait di mobile */
+         .btn-donate-detail-page { padding: 0.8rem 2rem; font-size: 1rem; }
     }
 
 </style>
@@ -308,93 +343,99 @@
 <div class="kebutuhan-detail-page-wrapper">
     <div class="kebutuhan-detail-main-container initial-loading"> {{-- Class untuk animasi loading --}}
 
-        <!-- Header Section -->
-        <header class="kebutuhan-detail-header">
-            <h1 class="kebutuhan-detail-title">{{ $kebutuhan->nama_kebutuhan }}</h1>
-            <div class="kebutuhan-header-meta-info">
-                @if($kebutuhan->tanggal_mulai_dipublikasikan)
-                <div class="meta-info-item">
-                    <i class="fas fa-calendar-alt"></i>
-                    <span>Dipublikasikan: <strong>{{ $kebutuhan->tanggal_mulai_dipublikasikan->isoFormat('D MMMM YYYY') }}</strong></span>
+        <div class="kebutuhan-detail-content-box">
+            <!-- Header Section -->
+            <header class="kebutuhan-detail-header">
+                <h1 class="kebutuhan-detail-title">{{ $kebutuhan->nama_kebutuhan }}</h1>
+                <div class="kebutuhan-header-meta-info">
+                    @if($kebutuhan->tanggal_mulai_dipublikasikan)
+                    <div class="meta-info-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Dipublikasikan: <strong>{{ $kebutuhan->tanggal_mulai_dipublikasikan->isoFormat('D MMMM YYYY') }}</strong></span>
+                    </div>
+                    @endif
+
+                    @if($kebutuhan->tanggal_target_tercapai)
+                    <div class="meta-info-item">
+                        <i class="fas fa-flag-checkered"></i>
+                        <span>Batas Pengumpulan: <strong>{{ $kebutuhan->tanggal_target_tercapai->isoFormat('D MMMM YYYY') }}</strong></span>
+                    </div>
+                    @endif
+                    @if($kebutuhan->sisa_hari !== null && $kebutuhan->sisa_hari >= 0)
+                    <div class="meta-info-item">
+                        <i class="fas fa-hourglass-half"></i>
+                        <span>Sisa Waktu: <strong>{{ $kebutuhan->sisa_hari == 0 ? 'Hari terakhir!' : $kebutuhan->sisa_hari . ' hari' }}</strong></span>
+                    </div>
+                    @elseif($kebutuhan->sisa_hari !== null && $kebutuhan->sisa_hari < 0)
+                    <div class="meta-info-item text-danger">
+                        <i class="fas fa-times-circle"></i>
+                        <span>Periode Pengumpulan Telah Berakhir</span>
+                    </div>
+                    @endif
                 </div>
+            </header>
+
+            <!-- Gambar Utama -->
+            <section class="kebutuhan-main-image-wrapper">
+                @if($kebutuhan->gambar_kebutuhan)
+                <img src="{{ Storage::url($kebutuhan->gambar_kebutuhan) }}"
+                     alt="Gambar {{ $kebutuhan->nama_kebutuhan }}"
+                     class="kebutuhan-main-image"
+                     loading="eager"> {{-- Gambar utama eager load --}}
+                @else
+                <span class="kebutuhan-image-placeholder-text">Gambar representatif untuk kebutuhan ini belum tersedia.</span>
+                @endif
+            </section>
+
+            <!-- Konten Body (Informasi Dana, Deskripsi, CTA) -->
+            <div class="kebutuhan-detail-body-content">
+                <!-- Informasi Dana (Jika ada target dana) -->
+                @if($kebutuhan->target_dana > 0)
+                <section class="kebutuhan-dana-summary">
+                    <div class="dana-summary-grid">
+                        <div class="dana-summary-item">
+                            <span class="dana-summary-value">Rp {{ number_format($kebutuhan->dana_terkumpul, 0, ',', '.') }}</span>
+                            <span class="dana-summary-label">Dana Terkumpul</span>
+                        </div>
+                        <div class="dana-summary-item">
+                            <span class="dana-summary-value">Rp {{ number_format($kebutuhan->target_dana, 0, ',', '.') }}</span>
+                            <span class="dana-summary-label">Target Donasi</span>
+                        </div>
+                        <div class="dana-summary-item">
+                            <span class="dana-summary-value">{{ number_format($kebutuhan->persentase_terkumpul, 1) }}%</span> {{-- 1 angka desimal --}}
+                            <span class="dana-summary-label">Dari Target</span>
+                        </div>
+                    </div>
+                </section>
+                @else
+                <section class="kebutuhan-dana-summary">
+                     <p class="dana-not-applicable">Ini adalah kebutuhan yang berbentuk barang atau dukungan non-finansial.</p>
+                </section>
                 @endif
 
-                @if($kebutuhan->tanggal_target_tercapai)
-                <div class="meta-info-item">
-                    <i class="fas fa-flag-checkered"></i>
-                    <span>Target Pengumpulan hingga: <strong>{{ $kebutuhan->tanggal_target_tercapai->isoFormat('D MMMM YYYY') }}</strong></span>
-                </div>
-                @endif
-                @if($kebutuhan->sisa_hari !== null && $kebutuhan->sisa_hari >= 0)
-                <div class="meta-info-item">
-                    <i class="fas fa-hourglass-half"></i>
-                    <span>Sisa Waktu: <strong>{{ $kebutuhan->sisa_hari }} hari</strong></span>
-                </div>
-                @elseif($kebutuhan->sisa_hari !== null && $kebutuhan->sisa_hari < 0)
-                <div class="meta-info-item">
-                    <i class="fas fa-times-circle"></i>
-                    <span>Periode Pengumpulan Telah Berakhir</span>
-                </div>
-                @endif
+                <!-- Deskripsi Kebutuhan -->
+                <section class="kebutuhan-description-content">
+                    <h2 class="content-section-heading">Rincian Kebutuhan</h2>
+                    <div class="description-prose">
+                        {!! $kebutuhan->deskripsi !!}
+                    </div>
+                </section>
+
+                <!-- Tombol Aksi (CTA) -->
+                <section class="kebutuhan-cta-section">
+                    <a href="{{ route('public.donasi.index', ['kebutuhan_id' => $kebutuhan->id, 'nama_kebutuhan' => $kebutuhan->nama_kebutuhan]) }}"
+                       class="btn-donate-detail-page">
+                        <i class="fas fa-hand-holding-heart"></i> Salurkan Dukungan Anda
+                    </a>
+                </section>
             </div>
-        </header>
+        </div>
 
-        <!-- Gambar Utama -->
-        <section class="kebutuhan-main-image-wrapper">
-            @if($kebutuhan->gambar_kebutuhan)
-            <img src="{{ Storage::url($kebutuhan->gambar_kebutuhan) }}"
-                 alt="Gambar {{ $kebutuhan->nama_kebutuhan }}"
-                 class="kebutuhan-main-image"
-                 loading="lazy">
-            @else
-            <span class="kebutuhan-image-placeholder-text">Gambar untuk kebutuhan ini belum tersedia.</span>
-            @endif
-        </section>
-
-        <!-- Informasi Dana (Jika ada target dana) -->
-        @if($kebutuhan->target_dana > 0)
-        <section class="kebutuhan-dana-summary">
-            <div class="dana-summary-grid">
-                <div class="dana-summary-item">
-                    <span class="dana-summary-value">Rp {{ number_format($kebutuhan->dana_terkumpul, 0, ',', '.') }}</span>
-                    <span class="dana-summary-label">Dana Terkumpul</span>
-                </div>
-                <div class="dana-summary-item">
-                    <span class="dana-summary-value">Rp {{ number_format($kebutuhan->target_dana, 0, ',', '.') }}</span>
-                    <span class="dana-summary-label">Target Donasi</span>
-                </div>
-                <div class="dana-summary-item">
-                    <span class="dana-summary-value">{{ number_format($kebutuhan->persentase_terkumpul, 0) }}%</span>
-                    <span class="dana-summary-label">Dari Target</span>
-                </div>
-            </div>
-        </section>
-        @else
-        <section class="kebutuhan-dana-summary">
-             <p class="dana-not-applicable">Ini adalah kebutuhan berbentuk barang atau dukungan non-finansial.</p>
-        </section>
-        @endif
-
-        <!-- Deskripsi Kebutuhan -->
-        <section class="kebutuhan-description-content">
-            <h2 class="content-section-heading">Detail Kebutuhan</h2>
-            <div class="description-prose">
-                {!! $kebutuhan->deskripsi !!} {{-- Asumsi deskripsi dari WYSIWYG dan sudah di-sanitize --}}
-            </div>
-        </section>
-
-        <!-- Tombol Aksi (CTA) -->
-        <section class="kebutuhan-cta-section">
-            <a href="{{ route('public.donasi.index', ['kebutuhan_id' => $kebutuhan->id, 'nama_kebutuhan' => $kebutuhan->nama_kebutuhan]) }}"
-               class="btn-donate-detail-page">
-                <i class="fas fa-donate"></i> Dukung Kebutuhan Ini
-            </a>
-        </section>
 
         <!-- Kebutuhan Lainnya -->
         @if(isset($kebutuhanLainnya) && $kebutuhanLainnya->isNotEmpty())
         <section class="kebutuhan-related-section">
-            <h2 class="kebutuhan-related-title">Lihat Kebutuhan Mendesak Lainnya</h2>
+            <h2 class="kebutuhan-related-title">Kebutuhan Lain yang Mendesak</h2>
             <div class="related-items-grid">
                 @foreach($kebutuhanLainnya as $itemLain)
                 <article class="related-item-card">
@@ -406,14 +447,15 @@
                              loading="lazy">
                         @else
                         <div class="related-item-image-placeholder">
-                            <span>Gambar Tidak Tersedia</span>
+                            <i class="fas fa-box-open"></i>
+                            <span>Gambar Belum Tersedia</span>
                         </div>
                         @endif
                     </a>
                     <div class="related-item-content">
                         <h3 class="related-item-title">
                             <a href="{{ route('public.kebutuhan.show', $itemLain->slug) }}">
-                                {{ Str::limit($itemLain->nama_kebutuhan, 50) }}
+                                {{ Str::limit($itemLain->nama_kebutuhan, 55) }}
                             </a>
                         </h3>
                         @if($itemLain->target_dana > 0)
@@ -421,10 +463,10 @@
                             Target: Rp {{ number_format($itemLain->target_dana, 0, ',', '.') }}
                         </p>
                         @else
-                        <p class="related-item-meta-info">Kebutuhan barang/non-finansial.</p>
+                        <p class="related-item-meta-info">Kebutuhan barang/jasa.</p>
                         @endif
                         <a href="{{ route('public.kebutuhan.show', $itemLain->slug) }}" class="btn-related-detail">
-                            Lihat Detail Kebutuhan
+                           <i class="fas fa-search-plus me-1"></i> Lihat Detail
                         </a>
                     </div>
                 </article>
@@ -440,50 +482,16 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // Efek loading awal untuk kontainer utama
     const detailContainer = document.querySelector('.kebutuhan-detail-main-container');
     if (detailContainer) {
-        // Hapus kelas initial-loading setelah delay singkat untuk memicu transisi
         setTimeout(() => {
             detailContainer.classList.add('loaded');
             detailContainer.classList.remove('initial-loading');
-        }, 100); // delay 100ms
+        }, 50); // kurangi delay agar lebih cepat
     }
 
-    // Smooth scroll untuk anchor links (jika ada di halaman ini)
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetEl = document.querySelector(this.getAttribute('href'));
-            if (targetEl) {
-                targetEl.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start' // atau 'center'
-                });
-            }
-        });
-    });
-
-    // Lazy loading untuk gambar tambahan (jika ada gambar yg tidak menggunakan loading="lazy" native)
-    // Jika semua gambar sudah pakai loading="lazy", script ini bisa opsional.
-    if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    if (img.dataset.src) { // Jika menggunakan data-src untuk lazy load manual
-                        img.src = img.dataset.src;
-                        img.removeAttribute('data-src'); // Hapus atribut setelah dimuat
-                        observer.unobserve(img);
-                    }
-                }
-            });
-        }, { rootMargin: "0px 0px 100px 0px" }); // Mulai load gambar 100px sebelum masuk viewport
-
-        document.querySelectorAll('img[data-src]').forEach(img => {
-            imageObserver.observe(img);
-        });
-    }
+    // Smooth scroll untuk anchor (jika ada)
+    // ... (script smooth scroll bisa tetap ada jika diperlukan di masa depan) ...
 });
 </script>
 @endpush
